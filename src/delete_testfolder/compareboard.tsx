@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { userData } from "./delete_this_userinfo";
 
 interface compareProps {
@@ -6,6 +6,17 @@ interface compareProps {
 }
 
 export default function Compareboard({ Clicked }: compareProps) {
+
+  const [clickedUser, setClickeduser] = useState("3")
+  
+  const handleClickedUser = (item:string) => {
+    setClickeduser(item)
+  }
+
+  useEffect(() => {
+    Clicked(clickedUser);
+},[clickedUser])
+
   return (
     <>
       <div className="lbchild compare">
@@ -20,7 +31,7 @@ export default function Compareboard({ Clicked }: compareProps) {
           </thead>
           <tbody>
             {userData.map((u, index) => (
-              <tr className="bodytr" key={index} onClick={() => Clicked(u.userId)}>
+              <tr className={`bodytr ${clickedUser===u.userId && "Active"}` } key={index} onClick={() => handleClickedUser(u.userId)}>
                 <td>{index+1}</td> <td>{u.username}</td> <td>{u.stats.highestscore}</td>
               </tr>
             ))}

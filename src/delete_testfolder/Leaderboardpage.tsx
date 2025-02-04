@@ -13,11 +13,12 @@ export default function Leaderboard() {
     <>
       <div className="lb">
         <div className="lb-main">
-          <div className="compareboard">
-            <Compareboard Clicked={handleUserselect} />
-          </div>
+         
           <div className="profile-com">
             <Profile selectedUser={selectedUserId} />
+          </div>
+          <div className="compareboard">
+            <Compareboard Clicked={handleUserselect} />
           </div>
         </div>
       </div>
