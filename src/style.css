@@ -6,6 +6,8 @@
     color-scheme: light dark;
     background-color: #f0f2f5;
     color: #213547;
+
+    --guhuzu-bg-color:rgb(15, 76, 129);
   }
   
   body {
@@ -451,3 +453,132 @@
   .share-button:hover {
     background-color: #eff6ff;
   }
+
+/* NAVBAR / HEADER */
+
+header{
+  background: black;
+}
+
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 24px 0.7rem  24px;
+  max-width: 1500px;
+  margin: 0 auto;
+
+}
+
+.logo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo img{
+  width: auto;
+  height: 35px;
+}
+
+.nav ul{
+list-style: none;
+display: flex;
+flex-direction: row;
+gap:3rem
+}
+
+.nav a{
+  text-decoration: none;
+  color: white;
+}
+
+.nav a:hover{
+  text-decoration: underline;
+}
+
+/* LEARDERBOARD */
+.lb{
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10vh 0;
+}
+
+.lb-main{
+display: flex;
+flex-direction: row;
+gap: 3rem;
+}
+
+.lbchild{
+  background-color: #ddd;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+/* CompareBoard*/
+
+table {
+  width: 600px;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  
+}
+
+th, td {
+  padding: 1rem 0;
+  text-align: center;
+}
+
+th {
+  background-color: var(--guhuzu-bg-color);
+  color: white;
+}
+tr{
+  cursor: pointer;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+/* th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+ */
+
+ /* PROFILE SECTION */
+ .profile{
+  width: 600px;
+ }
+
+ .profile h1{
+  text-align: center;
+ }
+
+ .profile img{
+  max-height: 150px;
+  border-radius: 50%;
+ }
+
+ .profileinfogroup-1{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+ }
