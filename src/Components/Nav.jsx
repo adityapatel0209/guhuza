@@ -1,6 +1,7 @@
 import React from "react";
 import guhuzalogo from "../asset/logos/guhuza.svg"
 import { Link } from "react-router-dom";
+import "../style.css"
 
 function Navbar() {
     return (

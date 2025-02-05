@@ -4,17 +4,13 @@ export default function Sidebar({
   questions,
   currentQuestionIndex,
   onQuestionClick,
-  onLevelClick,
   toggleSidebar,
-  currentLevel,
   attemptedQuestions,
   isSidebarHidden,
   onSubmitQuiz,
 }) {
-  const levels = Array.from({ length: 50 }, (_, i) => i + 1); // Levels 1 to 50
-
   // Filter questions based on the current level
-  const currentLevelQuestions = questions.filter((q) => q.level === currentLevel);
+  const currentLevelQuestions = questions;
 
   return (
     <aside className={`sidebar ${isSidebarHidden ? "collapsed" : ""}`}>
@@ -48,22 +44,6 @@ export default function Sidebar({
           ))}
         </div>
 
-        {/* Levels Section */}
-        <h2>Levels</h2>
-        <div className="levels-container">
-          {levels.map((level) => (
-            <button
-              key={level}
-              className={`level-button ${
-                currentLevel === level ? "active" : ""
-              }`}
-              onClick={() => onLevelClick(level)}
-            >
-              {level} {/* Only show the number */}
-            </button>
-          ))}
-        </div>
-
         {/* Submit Quiz Button */}
         <button className="submit-quiz-button" onClick={onSubmitQuiz}>
           Submit Quiz
@@ -73,9 +53,6 @@ export default function Sidebar({
       {/* Collapsed Sidebar Buttons */}
       {isSidebarHidden && (
         <div className="collapsed-buttons">
-          <button className="collapsed-button" onClick={() => onLevelClick(currentLevel)}>
-            L
-          </button>
           <button
             className="collapsed-button"
             onClick={() => onQuestionClick(currentQuestionIndex)}

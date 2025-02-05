@@ -1,0 +1,170 @@
+/* Apply background color to the whole page */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #f8f9fa; /* Light background for the whole page */
+  }
+  
+  /* Center the quiz container */
+  .quiz-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Full viewport height */
+    background-color: #f8f9fa; /* Light background */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    width: 100%; /* Take full width */
+  }
+  
+  /* Container for the main quiz */
+  .quiz-main-container {
+    background-color: white;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 40px;
+    max-width: 1000px; /* Increased maximum width for larger screens */
+    width: 100%; /* Take full width on smaller screens */
+    margin: 0 auto; /* Center horizontally */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+  }
+  
+  /* Question container */
+  .question-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .question-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Answers container */
+  .answers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Answer button styling */
+  .answer-button {
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 2px solid #007bff;
+    border-radius: 10px; /* Rounded corners */
+    background-color: white;
+    color: #007bff;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+  
+  .answer-button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* Correct answer styling */
+  .answer-button.correct {
+    border-color: #28a745; /* Green border for correct answer */
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); /* Green shadow */
+    animation: correctAnimation 0.5s ease;
+  }
+  
+  /* Incorrect answer styling */
+  .answer-button.incorrect {
+    border-color: #dc3545; /* Red border for incorrect answer */
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3); /* Red shadow */
+    animation: incorrectAnimation 0.5s ease;
+  }
+  
+  /* Next button styling */
+  .next-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .next-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Animations */
+  @keyframes correctAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes incorrectAnimation {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-10px);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+    75% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .quiz-main-container {
+      padding: 30px; /* Reduce padding on smaller screens */
+    }
+  
+    .question-text {
+      font-size: 20px; /* Smaller font size for smaller screens */
+    }
+  
+    .answer-button {
+      padding: 12px; /* Smaller padding for smaller screens */
+      font-size: 16px; /* Smaller font size for smaller screens */
+    }
+  
+    .next-button {
+      font-size: 16px; /* Smaller font size for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .quiz-main-container {
+      padding: 20px; /* Further reduce padding on very small screens */
+    }
+  
+    .question-text {
+      font-size: 18px; /* Even smaller font size for very small screens */
+    }
+  
+    .answer-button {
+      padding: 10px; /* Even smaller padding for very small screens */
+      font-size: 14px; /* Even smaller font size for very small screens */
+    }
+  
+    .next-button {
+      font-size: 14px; /* Even smaller font size for very small screens */
+    }
+  }
