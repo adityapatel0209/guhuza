@@ -103,7 +103,7 @@ interface CustomLineChartProps{
 
 const CustomLineChart=({ interval1, interval2, interval3, interval4, interval5 }: CustomLineChartProps)=>{
   return (
-    <LineChart width={500} height={}>
+    <LineChart width={500}>
 
     </LineChart>
   );
