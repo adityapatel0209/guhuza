@@ -3,49 +3,65 @@ import React, { createContext, useState, useEffect, useCallback } from "react";
 const TimerContext = createContext();
 
 export const TimerProvider = ({ children }) => {
-  const [totalTime, setTotalTime] = useState(0); // Total quiz time
-  const [levelTimers, setLevelTimers] = useState({}); // Timers for each level
-  const [currentLevel, setCurrentLevel] = useState(1); // Track the current level
-  const [isTimerRunning, setIsTimerRunning] = useState(true); // Track if the timer is running
+  const [totalTime, setTotalTime] = useState(() => {
+    const savedTotalTime = localStorage.getItem("totalTime");
+    return savedTotalTime ? parseInt(savedTotalTime, 10) : 0;
+  });
+  const [levelTimers, setLevelTimers] = useState(() => {
+    const savedLevelTimers = localStorage.getItem("levelTimers");
+    return savedLevelTimers ? JSON.parse(savedLevelTimers) : {};
+  });
+  const [currentLevel, setCurrentLevel] = useState(() => {
+    const savedCurrentLevel = localStorage.getItem("currentLevel");
+    return savedCurrentLevel ? parseInt(savedCurrentLevel, 10) : 1;
+  });
+  const [isTimerRunning, setIsTimerRunning] = useState(true);
 
-  // Total timer logic
+  useEffect(() => {
+    localStorage.setItem("totalTime", totalTime);
+  }, [totalTime]);
+
+  useEffect(() => {
+    localStorage.setItem("levelTimers", JSON.stringify(levelTimers));
+  }, [levelTimers]);
+
+  useEffect(() => {
+    localStorage.setItem("currentLevel", currentLevel);
+  }, [currentLevel]);
+
   useEffect(() => {
     let totalTimer;
     if (isTimerRunning) {
       totalTimer = setInterval(() => {
-        setTotalTime((prevTime) => prevTime + 1); // Increment total time every second
+        setTotalTime((prevTime) => prevTime + 1);
       }, 1000);
     }
-    return () => clearInterval(totalTimer); // Cleanup timer on unmount
+    return () => clearInterval(totalTimer);
   }, [isTimerRunning]);
 
-  // Level timer logic
   useEffect(() => {
     let levelTimer;
     if (isTimerRunning && currentLevel) {
       levelTimer = setInterval(() => {
         setLevelTimers((prevTimers) => ({
           ...prevTimers,
-          [currentLevel]: (prevTimers[currentLevel] || 0) + 1, // Increment level timer every second
+          [currentLevel]: (prevTimers[currentLevel] || 0) + 1,
         }));
       }, 1000);
     }
     return () => {
-      if (levelTimer) clearInterval(levelTimer); // Cleanup timer on level change or unmount
+      if (levelTimer) clearInterval(levelTimer);
     };
   }, [isTimerRunning, currentLevel]);
 
-  // Update the current level
   const updateCurrentLevel = useCallback((level) => {
     setCurrentLevel(level);
   }, []);
 
-  // Stop the timer
   const stopTimer = useCallback(() => {
     setIsTimerRunning(false);
   }, []);
 
-  // Reset the timer
   const resetTimer = useCallback(() => {
     setTotalTime(0);
     setLevelTimers({});
@@ -59,4 +75,4 @@ export const TimerProvider = ({ children }) => {
   );
 };
 
-export default TimerContext; // Export TimerContext
+export default TimerContext;
