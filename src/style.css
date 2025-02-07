@@ -434,7 +434,6 @@ td {
 
 th {
   background-color: var(--guhuzu-bg-color);
-  color: white;
 }
 tbody tr {
   cursor: pointer;
@@ -451,6 +450,22 @@ tbody tr:hover {
   background-color: #ddd;
 }
 
+/* th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+ */
 
 
 /* PROFILE SECTION */

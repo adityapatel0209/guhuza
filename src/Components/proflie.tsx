@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { userData } from "../delete_testfolder/delete_this_userinfo";
-import { PieChart, Pie, Cell, Tooltip, Legend,LineChart,Line,XAxis,YAxis,CartesianGrid } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
 
 interface profileProps {
   selectedUser: string;
@@ -35,16 +46,7 @@ export default function Profile({ selectedUser }: profileProps) {
                     </div>
                   </div>
 
-                  <div className="profileinfogroup-2">
-                    <div>
-                      <p>Highest Score: {u.stats.highestscore}</p>
-                      <p>Number of Attempts: {u.stats.numberofattempts}</p>
-                      <p>Overall Stars: {u.stats.overallstars}</p>
-                    </div>
-                    <CustomPieChart Attempts={u.stats.numberofattempts} Stars={u.stats.overallstars}/>
-                  </div>
-                </div>
-                <div className="profileinfo-sub">
+                  <div className="profileinfo-bio">
                   <h4>Bio</h4>
                   <p>{u.userbio}</p>
                   <ul className="tags">
@@ -52,7 +54,28 @@ export default function Profile({ selectedUser }: profileProps) {
                       <li key={index}>{t}</li>
                     ))}
                   </ul>
+                  </div>
+                  
+                  <div className="profileinfogroup-2">
+                    <div>
+                      <p>Highest Score: {u.stats.highestscore}</p>
+                      <p>Number of Attempts: {u.stats.numberofattempts}</p>
+                      <p>Overall Stars: {u.stats.overallstars}</p>
+                    </div>
+                    <CustomPieChart
+                      Attempts={u.stats.numberofattempts}
+                      Stars={u.stats.overallstars}
+                    />
+                  </div>
                 </div>
+                <CustomLineChart interval1={u.stats.levelIntervalscore.interval1}
+                  interval2={u.stats.levelIntervalscore.interval2}
+                  interval3={u.stats.levelIntervalscore.interval3}
+                  interval4={u.stats.levelIntervalscore.interval4}
+                  interval5={u.stats.levelIntervalscore.interval5}/>
+               
+               
+              
               </div>
             )}
           </div>
@@ -93,7 +116,7 @@ const CustomPieChart: React.FC<CustomPieChartProps> = ({ Attempts, Stars }) => {
   );
 };
 
-interface CustomLineChartProps{
+interface CustomLineChartProps {
   interval1: number;
   interval2: number;
   interval3: number;
@@ -101,10 +124,42 @@ interface CustomLineChartProps{
   interval5: number;
 }
 
-const CustomLineChart=({ interval1, interval2, interval3, interval4, interval5 }: CustomLineChartProps)=>{
+const CustomLineChart = ({
+  interval1,
+  interval2,
+  interval3,
+  interval4,
+  interval5,
+}: CustomLineChartProps) => {
   return (
-    <LineChart width={500}>
-
+    <LineChart
+      width={500}
+      height={400}
+      data={[
+        { name: "Level 1-10", Score: interval1 },
+        { name: "Level 11-20", Score: interval2 },
+        { name: "Level 21-30", Score: interval3 },
+        { name: "Level 31-40", Score: interval4 },
+        { name: "Level 41-50", Score: interval5 },
+      ]}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line
+        type="monotone"
+        dataKey="Score"
+        stroke="#8884d8"
+        activeDot={{ r: 8 }}
+      />
     </LineChart>
   );
-}
+};
