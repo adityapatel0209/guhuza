@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/QuizPage.css';
+import Scorecard from '../Components/scorecard';
 
 interface Question {
   question: string;
@@ -23,6 +24,9 @@ const QuizPage: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
+  const [startTime, setStartTime] = useState<number>(Date.now());
+  const [endTime, setEndTime] = useState<number | null>(null);
+  const [levelTimes, setLevelTimes] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +37,7 @@ const QuizPage: React.FC = () => {
         );
         setData(response.data);
         setLoading(false);
+        setStartTime(Date.now());
       } catch (err: any) {
         setError(err.message);
         setLoading(false);
@@ -47,11 +52,27 @@ const QuizPage: React.FC = () => {
     if (index === data!.test.question[currentQuestionIndex].test_answer) {
       setScore(score + 1);
     }
+    setLevelTimes([...levelTimes, Date.now() - startTime]);
   };
 
   const handleNextQuestion = () => {
     setSelectedOption(null);
     setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setStartTime(Date.now());
+  };
+
+  const handleRetry = () => {
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setSelectedOption(null);
+    setEndTime(null);
+    setLevelTimes([]);
+    setStartTime(Date.now());
+  };
+
+  const handleShare = () => {
+    // Implement share functionality
+    alert('Share functionality not implemented yet.');
   };
 
   if (loading) {
@@ -67,7 +88,17 @@ const QuizPage: React.FC = () => {
   }
 
   if (currentQuestionIndex >= data.test.question.length) {
-    return <div>Your score: {score}</div>;
+    const totalTime = levelTimes.reduce((acc, time) => acc + time, 0);
+    return (
+      <Scorecard
+        correctAnswers={score}
+        totalQuestions={data.test.question.length}
+        totalTime={totalTime / 1000}
+        levelTimes={levelTimes.map(time => time / 1000)}
+        onRetry={handleRetry}
+        onShare={handleShare}
+      />
+    );
   }
 
   const currentQuestion = data.test.question[currentQuestionIndex];
