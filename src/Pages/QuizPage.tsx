@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Styles/QuizPage.css';
-import Scorecard from '../Components/scorecard';
+import Scorecard from '../Components/Scorecard';
+import Sidebar from '../Components/Sidebar'; // Import the Sidebar component
 
 interface Question {
   question: string;
@@ -18,6 +19,7 @@ interface QuizData {
 
 const QuizPage: React.FC = () => {
   const { level } = useParams<{ level: string }>();
+  const navigate = useNavigate();
   const [data, setData] = useState<QuizData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,6 +29,9 @@ const QuizPage: React.FC = () => {
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [endTime, setEndTime] = useState<number | null>(null);
   const [levelTimes, setLevelTimes] = useState<number[]>([]);
+  const [attemptedQuestions, setAttemptedQuestions] = useState<number[]>([]);
+
+  const levels = ['Level 1', 'Level 2', 'Level 3']; // Example levels
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,11 +53,14 @@ const QuizPage: React.FC = () => {
   }, [level]);
 
   const handleOptionClick = (index: number) => {
+    if (selectedOption !== null) return; // Prevent multiple selections
+
     setSelectedOption(index);
     if (index === data!.test.question[currentQuestionIndex].test_answer) {
       setScore(score + 1);
     }
     setLevelTimes([...levelTimes, Date.now() - startTime]);
+    setAttemptedQuestions([...attemptedQuestions, currentQuestionIndex]);
   };
 
   const handleNextQuestion = () => {
@@ -68,11 +76,20 @@ const QuizPage: React.FC = () => {
     setEndTime(null);
     setLevelTimes([]);
     setStartTime(Date.now());
+    setAttemptedQuestions([]);
   };
 
   const handleShare = () => {
     // Implement share functionality
     alert('Share functionality not implemented yet.');
+  };
+
+  const handleLevelChange = (newLevel: string) => {
+    navigate(`/quiz/${newLevel.toLowerCase().replace(' ', '-')}`);
+  };
+
+  const handleQuestionChange = (index: number) => {
+    setCurrentQuestionIndex(index);
   };
 
   if (loading) {
@@ -94,7 +111,7 @@ const QuizPage: React.FC = () => {
         correctAnswers={score}
         totalQuestions={data.test.question.length}
         totalTime={totalTime / 1000}
-        levelTimes={levelTimes.map(time => time / 1000)}
+        levelTimes={levelTimes.map((time) => time / 1000)}
         onRetry={handleRetry}
         onShare={handleShare}
       />
@@ -104,39 +121,57 @@ const QuizPage: React.FC = () => {
   const currentQuestion = data.test.question[currentQuestionIndex];
 
   return (
-    <div className="quiz-container">
-      <div className="quiz-main-container">
-        <div className="question-container">
-          <h2>Question {currentQuestionIndex + 1}</h2>
-          <p className="question-text">{currentQuestion.question}</p>
-        </div>
-        <div className="answers-container">
-          {currentQuestion.answers.map((answer, index) => (
-            <button
-              key={index}
-              className={`answer-button ${
-                selectedOption !== null
-                  ? index === currentQuestion.test_answer
-                    ? 'correct'
-                    : index === selectedOption
-                    ? 'incorrect'
+    <div className="quiz-page">
+      <Sidebar
+        levels={levels}
+        currentLevel={level || ''}
+        questions={data.test.question}
+        attemptedQuestions={attemptedQuestions}
+        currentQuestionIndex={currentQuestionIndex}
+        onLevelChange={handleLevelChange}
+        onQuestionChange={handleQuestionChange}
+      />
+      <nav className="navbar">
+        <h1>Quiz App</h1>
+      </nav>
+      <div className="quiz-container">
+        <div className="quiz-main-container">
+          <div className="question-container">
+            <h2>Question {currentQuestionIndex + 1}</h2>
+            <p className="question-text">{currentQuestion.question}</p>
+          </div>
+          <div className="answers-container">
+            {currentQuestion.answers.map((answer, index) => (
+              <button
+                key={index}
+                className={`answer-button ${
+                  selectedOption !== null
+                    ? index === currentQuestion.test_answer
+                      ? 'correct'
+                      : index === selectedOption
+                      ? 'incorrect'
+                      : ''
                     : ''
-                  : ''
-              }`}
-              onClick={() => handleOptionClick(index)}
-              disabled={selectedOption !== null}
+                }`}
+                onClick={() => handleOptionClick(index)}
+                disabled={selectedOption !== null}
+              >
+                {answer}
+              </button>
+            ))}
+          </div>
+          {selectedOption !== null && (
+            <button
+              className="next-button"
+              onClick={handleNextQuestion}
+              disabled={selectedOption === null}
             >
-              {answer}
+              {currentQuestionIndex + 1 >= data.test.question.length
+                ? 'Finish Quiz'
+                : 'Next Question'}
             </button>
-          ))}
+          )}
         </div>
-        {selectedOption !== null && (
-          <button className="next-button" onClick={handleNextQuestion}>
-            {currentQuestionIndex + 1 >= data.test.question.length
-              ? 'Finish Quiz'
-              : 'Next Question'}
-          </button>
-        )}
       </div>
     </div>
   );

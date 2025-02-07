@@ -1,0 +1,146 @@
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Hide sidebar by default */
+    width: 300px;
+    height: 100%;
+    background-color: #2c3e50;
+    color: white;
+    transition: left 0.3s ease;
+    border-radius: 0 15px 15px 0;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  .sidebar.visible {
+    left: 0; /* Show sidebar when visible */
+  }
+  
+  .sidebar-content {
+    padding: 20px;
+  }
+  
+  /* Level Box */
+  .level-box {
+    background-color: #34495e;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .level-box h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  /* Questions List */
+  .questions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .question-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #34495e;
+  }
+  
+  .question-item:hover {
+    background-color: #1abc9c;
+  }
+  
+  .question-item.active {
+    background-color: #1abc9c;
+    font-weight: bold;
+  }
+  
+  .question-item .attempted {
+    color: #2ecc71;
+    font-size: 1.2rem;
+  }
+  
+  /* Select Level Button */
+  .select-level-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .select-level-button:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Toggle Button */
+  .sidebar-toggle-button {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar-toggle-button:hover {
+    background-color: #1abc9c;
+  }
+  
+  /* Confirmation Popup */
+  .confirmation-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    color: black;
+  }
+  
+  .confirmation-popup p {
+    margin-bottom: 20px;
+  }
+  
+  .confirmation-popup button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .confirmation-popup button:first-of-type {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .confirmation-popup button:last-of-type {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .confirmation-popup button:hover {
+    opacity: 0.8;
+  }
