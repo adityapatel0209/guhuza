@@ -1,16 +1,26 @@
+import React from 'react';
+import '../Styles/scorecard.css';
 
-export default function Scorecard({
+interface ScorecardProps {
+  correctAnswers: number;
+  totalQuestions: number;
+  totalTime: number;
+  levelTimes: number[];
+  onRetry: () => void;
+  onShare: () => void;
+}
+
+const Scorecard: React.FC<ScorecardProps> = ({
   correctAnswers,
   totalQuestions,
   totalTime,
   levelTimes,
   onRetry,
   onShare,
-}) {
+}) => {
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
   const averageTimePerQuestion = (totalTime / totalQuestions).toFixed(2);
-  const fastestTime = Math.min(...Object.values(levelTimes));
-  const completionRate = Math.round((correctAnswers / totalQuestions) * 100);
+  const fastestTime = Math.min(...levelTimes);
   const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
 
   // Calculate stars based on score percentage
@@ -45,10 +55,6 @@ export default function Scorecard({
             <p>{averageTimePerQuestion} sec</p>
           </div>
           <div className="stat-card">
-            <h3>Completion Rate</h3>
-            <p>{completionRate}%</p>
-          </div>
-          <div className="stat-card">
             <h3>Score Percentage</h3>
             <p>{scorePercentage}%</p>
           </div>
@@ -64,4 +70,6 @@ export default function Scorecard({
       </div>
     </div>
   );
-}
+};
+
+export default Scorecard;
