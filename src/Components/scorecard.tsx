@@ -1,4 +1,5 @@
-export default function Leaderboard({
+
+export default function Scorecard({
   correctAnswers,
   totalQuestions,
   totalTime,
