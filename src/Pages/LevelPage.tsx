@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LevelPage.css';
+import '../Components/LevelPage.css';
 
 export default function LevelPage() {
   const navigate = useNavigate();
