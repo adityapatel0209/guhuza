@@ -1,3 +1,13 @@
+import React
+  from "react";
+interface ScorecardProps {
+  correctAnswers: number;
+  totalQuestions: number;
+  totalTime: number;
+  levelTimes: Record<string, number>;
+  onRetry: () => void;
+  onShare: () => void;
+}
 
 export default function Scorecard({
   correctAnswers,
@@ -6,7 +16,7 @@ export default function Scorecard({
   levelTimes,
   onRetry,
   onShare,
-}) {
+}: ScorecardProps) {
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
   const averageTimePerQuestion = (totalTime / totalQuestions).toFixed(2);
   const fastestTime = Math.min(...Object.values(levelTimes));
