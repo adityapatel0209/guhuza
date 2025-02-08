@@ -22,7 +22,7 @@ interface UserInfo {
 export const userData: UserInfo[] = [
   {
     userId: "1",
-    username: "alexjoe",
+    username: "Alex Joe Borski",
     userbio:
       "Passionate gamer and coder, always looking for the next challenge.",
     datejoined: new Date("2023-05-14"),
@@ -86,7 +86,7 @@ export const userData: UserInfo[] = [
     datejoined: new Date("2021-12-15"),
     tags: ["gaming", "blogging", "UI/UX"],
     stats: {
-      highestscore: 450,
+      highestscore: 11450,
       numberofattempts: 6,
       overallstars: 5,
       levelIntervalscore: {

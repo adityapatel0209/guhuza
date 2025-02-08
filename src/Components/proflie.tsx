@@ -13,6 +13,8 @@ import {
   CartesianGrid,
 } from "recharts";
 
+import AnimatedNumbers from "react-animated-numbers";
+
 interface profileProps {
   selectedUser: string;
 }
@@ -37,7 +39,6 @@ export default function Profile({ selectedUser }: profileProps) {
               <div className="profileinfo">
                 <div className="profileinfo-main">
                   <div className="userInfo">
-                   
                     <div className="profileinfogroup-1 props">
                       <img
                         src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRVtbGO_5O3wYHzdsHNdDs9x6ecdCkZckrGHVGof6WCVZ4K7m10J3uCH6GRZP56RRy0z9y0fpzrFXj0mLQmeqps9w"
@@ -45,7 +46,14 @@ export default function Profile({ selectedUser }: profileProps) {
                       />
                       <div>
                         <h3>{u.username}</h3>
-                        <p>Date Joined : {u.datejoined.toDateString().split(' ').slice(1).join(' ')}</p>
+                        <p>
+                          Date Joined :{" "}
+                          {u.datejoined
+                            .toDateString()
+                            .split(" ")
+                            .slice(1)
+                            .join(" ")}
+                        </p>
                       </div>
                     </div>
 
@@ -63,37 +71,45 @@ export default function Profile({ selectedUser }: profileProps) {
                   <div className="userStats">
                     <div className="highestscore props info">
                       <p className="info-title">Highest Score</p>
-                      <span className="info-data">{u.stats.highestscore}</span>
+                      <span className="info-data">
+                        <AnimatedNum num={u.stats.highestscore} />
+                      </span>
                     </div>
                     <div className="n-attempts props info">
                       <p className="info-title">Number of Attempts</p>
-                      <span className="info-data">{u.stats.numberofattempts}</span>
+                      <span className="info-data">
+                        <AnimatedNum num={u.stats.numberofattempts} />
+                      </span>
                     </div>
                     <div className="o-star props info">
                       <p className="info-title">Overall Stars</p>
-                      <span className="info-data">{u.stats.overallstars}</span>
+                      <span className="info-data">
+                        <AnimatedNum num={u.stats.overallstars} />
+                      </span>
                     </div>
-
-                  </div>
-
-          
-                </div>
-                <div className="profileinfogroup-2">
+                    
+                    <div className="piechart props info">
+                      <p className="info-title">Stats</p>
                       <CustomPieChart
                         Attempts={u.stats.numberofattempts}
                         Stars={u.stats.overallstars}
                       />
                     </div>
+                  
+                  </div>
+                </div>
 
-                    <div className="linechart">
-                      <CustomLineChart
-                        interval1={u.stats.levelIntervalscore.interval1}
-                        interval2={u.stats.levelIntervalscore.interval2}
-                        interval3={u.stats.levelIntervalscore.interval3}
-                        interval4={u.stats.levelIntervalscore.interval4}
-                        interval5={u.stats.levelIntervalscore.interval5}
-                      />
-                    </div>
+                <div className="linechart props">
+                  <p className="info-title">Level Score</p>
+                  <CustomLineChart
+                    interval1={u.stats.levelIntervalscore.interval1}
+                    interval2={u.stats.levelIntervalscore.interval2}
+                    interval3={u.stats.levelIntervalscore.interval3}
+                    interval4={u.stats.levelIntervalscore.interval4}
+                    interval5={u.stats.levelIntervalscore.interval5}
+                  />
+                </div>
+
               </div>
             )}
           </div>
@@ -102,16 +118,32 @@ export default function Profile({ selectedUser }: profileProps) {
     </>
   );
 }
+
+interface AnimatedNumProps {
+  num: number;
+}
+const AnimatedNum = ({ num }: AnimatedNumProps) => {
+  return (
+    <>
+      <AnimatedNumbers
+        includeComma
+        transitions={(index) => ({ type: "string", duration: index + 1 })}
+        animateToNumber={num}
+      />
+    </>
+  );
+};
+
 interface CustomPieChartProps {
   Attempts: number;
   Stars: number;
 }
 
 const CustomPieChart: React.FC<CustomPieChartProps> = ({ Attempts, Stars }) => {
-  const COLORS = ["#0088FE", "#FFBB28"];
+  const COLORS = ["#73bfb8", "#3da5d9"];
 
   return (
-    <PieChart width={200} height={250}>
+    <PieChart width={200} height={200}>
       <Pie
         data={[
           { name: "Attempts", value: Attempts },
@@ -119,7 +151,7 @@ const CustomPieChart: React.FC<CustomPieChartProps> = ({ Attempts, Stars }) => {
         ]}
         cx="50%"
         cy="50%"
-        innerRadius={55}
+        innerRadius={50}
         outerRadius={80}
         fill="#8884d8"
         dataKey="value"
@@ -175,7 +207,7 @@ const CustomLineChart = ({
       <Line
         type="monotone"
         dataKey="Score"
-        stroke="#8884d8"
+        stroke="#e5a9a9"
         activeDot={{ r: 8 }}
       />
     </LineChart>
