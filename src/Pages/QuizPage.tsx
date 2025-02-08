@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Styles/QuizPage.css";
-import Scorecard from "../Components/Scorecard";
+import Scorecard from "../Components/scorecard";
 import Sidebar from "../Components/Sidebar"; // Import the Sidebar component
 import { CircularProgress, Box } from "@mui/material";
 
@@ -42,10 +42,13 @@ const QuizPage: React.FC = () => {
           `http://localhost:3000/api/users?level=${level}`
         );
 
-        setTimeout(() => {
-          setData(response.data);
-          setLoading(false);
-        }, 500000);
+        
+        setData(response.data);
+        setLoading(false);
+        {/*
+          setTimeout(() => {
+         }, 500000); //this  is used for delaying the response. might be useful later
+        */}
 
         setStartTime(Date.now());
       } catch (err: any) {
@@ -101,7 +104,7 @@ const QuizPage: React.FC = () => {
     return (
       <div className="loading">
         <Box>
-          <CircularProgress size="3rem"/>
+          <CircularProgress size="3rem" />
         </Box>
         <p>Loading</p>
       </div>
@@ -116,7 +119,7 @@ const QuizPage: React.FC = () => {
     return <div>No data found</div>;
   }
 
-  if (currentQuestionIndex >= data.test.question.length) {
+  if (currentQuestionIndex >= data.test.question.length /* true */) {
     const totalTime = levelTimes.reduce((acc, time) => acc + time, 0);
     return (
       <Scorecard

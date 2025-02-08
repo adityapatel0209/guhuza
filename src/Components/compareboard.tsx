@@ -24,9 +24,9 @@ export default function Compareboard({ Clicked }: compareProps) {
           <caption><h1>Leaderboard</h1></caption>
           <thead>
             <tr>
+              <th>Rank</th>
               <th>Name</th>
               <th>Highest Score</th>
-              <th>Rank</th>
             </tr>
           </thead>
           <tbody>

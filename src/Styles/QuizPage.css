@@ -1,11 +1,4 @@
-/* Apply background color to the whole page */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: #f0f0f0; /* Light grey background for the whole page */
-  font-family: 'Arial', sans-serif; /* Professional font */
-}
+
 
 /* Main container for the quiz page */
 /* Main container for the quiz page */

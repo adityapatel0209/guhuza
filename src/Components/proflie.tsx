@@ -29,53 +29,71 @@ export default function Profile({ selectedUser }: profileProps) {
   return (
     <>
       <div className="lbchild profile">
-        <h1>Profile</h1>
+        {/* <h1>Profile</h1> */}
+
         {userData.map((u, index) => (
           <div key={index}>
             {u.userId === selectedUserId && (
               <div className="profileinfo">
                 <div className="profileinfo-main">
-                  <div className="profileinfogroup-1">
-                    <img
-                      src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRVtbGO_5O3wYHzdsHNdDs9x6ecdCkZckrGHVGof6WCVZ4K7m10J3uCH6GRZP56RRy0z9y0fpzrFXj0mLQmeqps9w"
-                      alt="userImage"
-                    />
-                    <div>
-                      <h2>{u.username}</h2>
-                      <h5>Date Joined : {u.datejoined.toDateString()}</h5>
+                  <div className="userInfo">
+                   
+                    <div className="profileinfogroup-1 props">
+                      <img
+                        src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRVtbGO_5O3wYHzdsHNdDs9x6ecdCkZckrGHVGof6WCVZ4K7m10J3uCH6GRZP56RRy0z9y0fpzrFXj0mLQmeqps9w"
+                        alt="userImage"
+                      />
+                      <div>
+                        <h3>{u.username}</h3>
+                        <p>Date Joined : {u.datejoined.toDateString().split(' ').slice(1).join(' ')}</p>
+                      </div>
+                    </div>
+
+                    <div className="profileinfo-bio props">
+                      <h3>Bio</h3>
+                      <p>{u.userbio}</p>
+                      <ul className="tags">
+                        {u.tags.map((t, index) => (
+                          <li key={index}>{t}</li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
 
-                  <div className="profileinfo-bio">
-                  <h4>Bio</h4>
-                  <p>{u.userbio}</p>
-                  <ul className="tags">
-                    {u.tags.map((t, index) => (
-                      <li key={index}>{t}</li>
-                    ))}
-                  </ul>
-                  </div>
-                  
-                  <div className="profileinfogroup-2">
-                    <div>
-                      <p>Highest Score: {u.stats.highestscore}</p>
-                      <p>Number of Attempts: {u.stats.numberofattempts}</p>
-                      <p>Overall Stars: {u.stats.overallstars}</p>
+                  <div className="userStats">
+                    <div className="highestscore props info">
+                      <p className="info-title">Highest Score</p>
+                      <span className="info-data">{u.stats.highestscore}</span>
                     </div>
-                    <CustomPieChart
-                      Attempts={u.stats.numberofattempts}
-                      Stars={u.stats.overallstars}
-                    />
+                    <div className="n-attempts props info">
+                      <p className="info-title">Number of Attempts</p>
+                      <span className="info-data">{u.stats.numberofattempts}</span>
+                    </div>
+                    <div className="o-star props info">
+                      <p className="info-title">Overall Stars</p>
+                      <span className="info-data">{u.stats.overallstars}</span>
+                    </div>
+
                   </div>
+
+          
                 </div>
-                <CustomLineChart interval1={u.stats.levelIntervalscore.interval1}
-                  interval2={u.stats.levelIntervalscore.interval2}
-                  interval3={u.stats.levelIntervalscore.interval3}
-                  interval4={u.stats.levelIntervalscore.interval4}
-                  interval5={u.stats.levelIntervalscore.interval5}/>
-               
-               
-              
+                <div className="profileinfogroup-2">
+                      <CustomPieChart
+                        Attempts={u.stats.numberofattempts}
+                        Stars={u.stats.overallstars}
+                      />
+                    </div>
+
+                    <div className="linechart">
+                      <CustomLineChart
+                        interval1={u.stats.levelIntervalscore.interval1}
+                        interval2={u.stats.levelIntervalscore.interval2}
+                        interval3={u.stats.levelIntervalscore.interval3}
+                        interval4={u.stats.levelIntervalscore.interval4}
+                        interval5={u.stats.levelIntervalscore.interval5}
+                      />
+                    </div>
               </div>
             )}
           </div>
@@ -133,7 +151,7 @@ const CustomLineChart = ({
 }: CustomLineChartProps) => {
   return (
     <LineChart
-      width={500}
+      width={900}
       height={400}
       data={[
         { name: "Level 1-10", Score: interval1 },
