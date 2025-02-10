@@ -1,11 +1,4 @@
-/* Apply background color to the whole page */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: #f0f0f0; /* Light grey background for the whole page */
-  font-family: 'Arial', sans-serif; /* Professional font */
-}
+
 
 /* Main container for the quiz page */
 /* Main container for the quiz page */
@@ -172,4 +165,12 @@ body, html {
 
 .next-button:not(:disabled):focus {
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2); /* Focus ring for accessibility */
+}
+
+.loading{
+ display: flex;
+ justify-content:center;
+ align-items: center;
+ height: 80vh;
+flex-direction: column;
 }

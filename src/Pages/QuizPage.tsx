@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import '../Styles/QuizPage.css';
-import Scorecard from '../Components/Scorecard';
-import Sidebar from '../Components/Sidebar'; // Import the Sidebar component
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../Styles/QuizPage.css";
+import Scorecard from "../Components/scorecard";
+import Sidebar from "../Components/Sidebar"; // Import the Sidebar component
+import { CircularProgress, Box } from "@mui/material";
 
 interface Question {
   question: string;
@@ -31,7 +32,7 @@ const QuizPage: React.FC = () => {
   const [levelTimes, setLevelTimes] = useState<number[]>([]);
   const [attemptedQuestions, setAttemptedQuestions] = useState<number[]>([]);
 
-  const levels = ['Level 1', 'Level 2', 'Level 3']; // Example levels
+  const levels = ["Level 1", "Level 2", "Level 3"]; // Example levels
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,8 +41,15 @@ const QuizPage: React.FC = () => {
         const response = await axios.get(
           `http://localhost:3000/api/users?level=${level}`
         );
+
+        
         setData(response.data);
         setLoading(false);
+        {/*
+          setTimeout(() => {
+         }, 500000); //this  is used for delaying the response. might be useful later
+        */}
+
         setStartTime(Date.now());
       } catch (err: any) {
         setError(err.message);
@@ -81,11 +89,11 @@ const QuizPage: React.FC = () => {
 
   const handleShare = () => {
     // Implement share functionality
-    alert('Share functionality not implemented yet.');
+    alert("Share functionality not implemented yet.");
   };
 
   const handleLevelChange = (newLevel: string) => {
-    navigate(`/quiz/${newLevel.toLowerCase().replace(' ', '-')}`);
+    navigate(`/quiz/${newLevel.toLowerCase().replace(" ", "-")}`);
   };
 
   const handleQuestionChange = (index: number) => {
@@ -93,7 +101,14 @@ const QuizPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="loading">
+        <Box>
+          <CircularProgress size="3rem" />
+        </Box>
+        <p>Loading</p>
+      </div>
+    );
   }
 
   if (error) {
@@ -104,7 +119,7 @@ const QuizPage: React.FC = () => {
     return <div>No data found</div>;
   }
 
-  if (currentQuestionIndex >= data.test.question.length) {
+  if (currentQuestionIndex >= data.test.question.length /* true */) {
     const totalTime = levelTimes.reduce((acc, time) => acc + time, 0);
     return (
       <Scorecard
@@ -124,7 +139,7 @@ const QuizPage: React.FC = () => {
     <div className="quiz-page">
       <Sidebar
         levels={levels}
-        currentLevel={level || ''}
+        currentLevel={level || ""}
         questions={data.test.question}
         attemptedQuestions={attemptedQuestions}
         currentQuestionIndex={currentQuestionIndex}
@@ -147,11 +162,11 @@ const QuizPage: React.FC = () => {
                 className={`answer-button ${
                   selectedOption !== null
                     ? index === currentQuestion.test_answer
-                      ? 'correct'
+                      ? "correct"
                       : index === selectedOption
-                      ? 'incorrect'
-                      : ''
-                    : ''
+                      ? "incorrect"
+                      : ""
+                    : ""
                 }`}
                 onClick={() => handleOptionClick(index)}
                 disabled={selectedOption !== null}
@@ -167,8 +182,8 @@ const QuizPage: React.FC = () => {
               disabled={selectedOption === null}
             >
               {currentQuestionIndex + 1 >= data.test.question.length
-                ? 'Finish Quiz'
-                : 'Next Question'}
+                ? "Finish Quiz"
+                : "Next Question"}
             </button>
           )}
         </div>

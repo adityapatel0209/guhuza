@@ -2,7 +2,6 @@ import React from 'react';
 import {  Routes, Route } from 'react-router-dom';
 import LevelPage from './Pages/LevelPage.tsx';
 import QuizPage from './Pages/QuizPage.tsx'
-import './Styles/index.css';
 import Navbar from "./Components/Nav.jsx";
 import Leaderboard from "./Pages/Leaderboardpage.tsx";
 
