@@ -136,7 +136,7 @@ const QuizPage: React.FC = () => {
   const currentQuestion = data.test.question[currentQuestionIndex];
 
   return (
-    <div className="quiz-page">
+    <div className="universal-container">
       <Sidebar
         levels={levels}
         currentLevel={level || ""}
@@ -146,46 +146,48 @@ const QuizPage: React.FC = () => {
         onLevelChange={handleLevelChange}
         onQuestionChange={handleQuestionChange}
       />
-      <nav className="navbar">
-        <h1>Quiz App</h1>
-      </nav>
-      <div className="quiz-container">
-        <div className="quiz-main-container">
-          <div className="question-container">
-            <h2>Question {currentQuestionIndex + 1}</h2>
-            <p className="question-text">{currentQuestion.question}</p>
-          </div>
-          <div className="answers-container">
-            {currentQuestion.answers.map((answer, index) => (
+      <div className="content">
+        <nav className="navbar">
+          <h1>Quiz App</h1>
+        </nav>
+        <div className="quiz-container">
+          <div className="quiz-main-container">
+            <div className="question-container">
+              <h2>Question {currentQuestionIndex + 1}</h2>
+              <p className="question-text">{currentQuestion.question}</p>
+            </div>
+            <div className="answers-container">
+              {currentQuestion.answers.map((answer, index) => (
+                <button
+                  key={index}
+                  className={`answer-button ${
+                    selectedOption !== null
+                      ? index === currentQuestion.test_answer
+                        ? 'correct'
+                        : index === selectedOption
+                        ? 'incorrect'
+                        : ''
+                      : ''
+                  }`}
+                  onClick={() => handleOptionClick(index)}
+                  disabled={selectedOption !== null}
+                >
+                  {answer}
+                </button>
+              ))}
+            </div>
+            {selectedOption !== null && (
               <button
-                key={index}
-                className={`answer-button ${
-                  selectedOption !== null
-                    ? index === currentQuestion.test_answer
-                      ? "correct"
-                      : index === selectedOption
-                      ? "incorrect"
-                      : ""
-                    : ""
-                }`}
-                onClick={() => handleOptionClick(index)}
-                disabled={selectedOption !== null}
+                className="next-button"
+                onClick={handleNextQuestion}
+                disabled={selectedOption === null}
               >
-                {answer}
+                {currentQuestionIndex + 1 >= data.test.question.length
+                  ? 'Finish Quiz'
+                  : 'Next Question'}
               </button>
-            ))}
+            )}
           </div>
-          {selectedOption !== null && (
-            <button
-              className="next-button"
-              onClick={handleNextQuestion}
-              disabled={selectedOption === null}
-            >
-              {currentQuestionIndex + 1 >= data.test.question.length
-                ? "Finish Quiz"
-                : "Next Question"}
-            </button>
-          )}
         </div>
       </div>
     </div>
