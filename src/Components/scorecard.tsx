@@ -22,6 +22,7 @@ const Scorecard: React.FC<ScorecardProps> = ({
   onRetry,
   onShare,
 }) => {
+ // correctAnswers = 10;
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
   const averageTimePerQuestion = (totalTime / totalQuestions).toFixed(2);
   const fastestTime = Math.min(...levelTimes);
@@ -44,7 +45,7 @@ const Scorecard: React.FC<ScorecardProps> = ({
               <p className="speech-text">{mascotMessage[item].message}</p>
             </div>
             <div className="guhuza-mascot">
-              <img className="mascot-svg" src={mascotMessage[item].image} alt="mascot-good" />
+              <img className="mascot-svg" src={mascotMessage[item].image} alt="mascot" />
             </div>
       
       </>
@@ -89,7 +90,9 @@ const Scorecard: React.FC<ScorecardProps> = ({
             </div>
           </div>
           <div className="guhuza-mascot-container">
-           {correctAnswers>=8?handleMascotMesage(0):correctAnswers>=5?handleMascotMesage(1):handleMascotMesage(2)}
+          
+            {correctAnswers >= 8 ? handleMascotMesage(0) : correctAnswers >= 5 ? handleMascotMesage(1) : handleMascotMesage(2)}
+
           </div>
         </div>
         <div className="leaderboard-buttons">
