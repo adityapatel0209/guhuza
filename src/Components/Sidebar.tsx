@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../Styles/Sidebar.css'; // Import the Sidebar styles
+import '../Styles/Sidebar.css';
 
 interface SidebarProps {
   levels: string[];
