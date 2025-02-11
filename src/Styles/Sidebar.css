@@ -30,11 +30,6 @@
     text-align: center;
   }
   
-  .level-box h2 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  
   /* Questions List */
   .questions-list {
     list-style: none;
@@ -164,4 +159,22 @@
   
   .confirmation-popup button:hover {
     opacity: 0.8;
+  }
+  
+  /* Universal Container */
+  .universal-container {
+    display: flex;
+    height: 100vh;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .sidebar-visible .content {
+    margin-left: 300px; /* Adjust based on sidebar width */
+  }
+  
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #f0f0f0; /* Light grey background */
   }
