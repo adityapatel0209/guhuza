@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../Styles/Sidebar.css';
+import '../Styles/Sidebar.css'; // Import the Sidebar styles
+import checksvg from"../asset/other/check.svg"
 
 interface SidebarProps {
   levels: string[];
@@ -46,6 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {/* Toggle Button */}
+
       <button
         className="sidebar-toggle-button"
         onClick={() => setIsVisible(!isVisible)}
@@ -54,14 +56,18 @@ const Sidebar: React.FC<SidebarProps> = ({
       </button>
 
       {/* Sidebar */}
+
       <div className={`sidebar ${isVisible ? 'visible' : ''}`}>
         <div className="sidebar-content">
+
           {/* Level Box at the Top */}
+
           <div className="level-box">
             <h2>Level: {currentLevel}</h2>
           </div>
 
           {/* Questions List */}
+
           <h3>Questions</h3>
           <ul className="questions-list">
             {questions.map((question, index) => (
@@ -72,15 +78,16 @@ const Sidebar: React.FC<SidebarProps> = ({
                 }`}
                 onClick={() => onQuestionChange(index)}
               >
-                <span>Q{index + 1}: {question.question}</span>
+                <span className="question">Q{index + 1}: {question.question}</span>
                 {attemptedQuestions.includes(index) && (
-                  <span className="attempted">✔️</span>
+                  <span className="attempted"><img src={checksvg}/></span>
                 )}
               </li>
             ))}
           </ul>
 
           {/* Select Level Button */}
+          
           <button
             className="select-level-button"
             onClick={() => handleLevelChange(currentLevel)}

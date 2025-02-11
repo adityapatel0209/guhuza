@@ -1,6 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../Styles/LevelPage.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../Styles/LevelPage.css";
+import Analytics from "../Components/Analytics";
 
 export default function LevelPage() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function LevelPage() {
 
   return (
     <div className="level-page">
+      <Analytics />
       <h1>Select Level</h1>
       <div className="levels-grid">
         {levels.map((level) => (
