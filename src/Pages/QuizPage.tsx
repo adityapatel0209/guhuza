@@ -146,9 +146,6 @@ const QuizPage: React.FC = () => {
         onLevelChange={handleLevelChange}
         onQuestionChange={handleQuestionChange}
       />
-      <nav className="navbar">
-        <h1>Quiz App</h1>
-      </nav>
       <div className="quiz-container">
         <div className="quiz-main-container">
           <div className="question-container">

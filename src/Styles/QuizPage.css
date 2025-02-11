@@ -5,7 +5,6 @@
 .quiz-page {
   display: flex;
   height: 100vh; /* Full viewport height */
-  margin-left: 280px; /* Adjust for the sidebar width */
   position: relative; /* Ensure it stays in the correct position */
   z-index: 0; /* Ensure it stays behind the navigation bar */
 }
@@ -36,7 +35,6 @@
 }
 
 .quiz-main-container:hover {
-  transform: translateY(-5px); /* Slight lift on hover */
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
