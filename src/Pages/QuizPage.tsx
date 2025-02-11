@@ -17,6 +17,16 @@ interface QuizData {
     question: Question[];
   };
 }
+interface AttemptedQuestions{
+  questionIndex: number; 
+  correctAnswer: number; 
+  selectedChoice: number|null;
+}
+
+interface AttemptedQuestionsData{
+  attemptedQuestionsData: AttemptedQuestions[];
+}
+
 
 const QuizPage: React.FC = () => {
   const { level } = useParams<{ level: string }>();
@@ -31,6 +41,7 @@ const QuizPage: React.FC = () => {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [levelTimes, setLevelTimes] = useState<number[]>([]);
   const [attemptedQuestions, setAttemptedQuestions] = useState<number[]>([]);
+  const [attemptedQuestionsData, setAttemptedQuestionsData] = useState<AttemptedQuestions[]>([]);
 
   const levels = ["Level 1", "Level 2", "Level 3"]; // Example levels
 
@@ -64,6 +75,10 @@ const QuizPage: React.FC = () => {
     if (selectedOption !== null) return; // Prevent multiple selections
 
     setSelectedOption(index);
+    console.log(selectedOption)
+
+    // console.log([currentQuestion.question,currentQuestion.test_answer,selectedOption])
+
     if (index === data!.test.question[currentQuestionIndex].test_answer) {
       setScore(score + 1);
     }
@@ -72,9 +87,14 @@ const QuizPage: React.FC = () => {
   };
 
   const handleNextQuestion = () => {
+    const newAttemptedData: AttemptedQuestions={questionIndex:currentQuestionIndex,correctAnswer:currentQuestion.test_answer,selectedChoice:selectedOption}
+    setAttemptedQuestionsData([...attemptedQuestionsData,newAttemptedData]);
     setSelectedOption(null);
     setCurrentQuestionIndex(currentQuestionIndex + 1);
     setStartTime(Date.now());
+
+    /* console.log(attemptedQuestionsData); */
+
   };
 
   const handleRetry = () => {
@@ -97,7 +117,7 @@ const QuizPage: React.FC = () => {
   };
 
   const handleQuestionChange = (index: number) => {
-    setCurrentQuestionIndex(index);
+   attemptedQuestions.includes(index) && setCurrentQuestionIndex(index);
   };
 
   if (loading) {
@@ -156,16 +176,15 @@ const QuizPage: React.FC = () => {
             {currentQuestion.answers.map((answer, index) => (
               <button
                 key={index}
-                className={`answer-button ${
-                  selectedOption !== null
+                className={`answer-button ${selectedOption !== null
                     ? index === currentQuestion.test_answer
                       ? "correct"
                       : index === selectedOption
-                      ? "incorrect"
-                      : ""
+                        ? "incorrect"
+                        : ""
                     : ""
-                }`}
-                onClick={() => handleOptionClick(index)}
+                  }`}
+                onClick={() => { handleOptionClick(index);}}
                 disabled={selectedOption !== null}
               >
                 {answer}

@@ -130,7 +130,7 @@
 .next-button {
   background-color: #000000; /* Black background */
   color: white; /* White text */
-  border: none;
+  border: 1px solid black;
   padding: 12px 24px; /* Comfortable padding */
   font-size: 18px; /* Slightly larger font size */
   font-weight: 500; /* Medium font weight */
@@ -145,19 +145,17 @@
   background-color: #cccccc; /* Grey background when disabled */
   color: #666666; /* Dark grey text when disabled */
   cursor: not-allowed; /* Show disabled cursor */
-  border: 2px solid #cccccc; /* Grey border when disabled */
+  border: 1px solid #cccccc; /* Grey border when disabled */
 }
 
 .next-button:not(:disabled):hover {
   background-color: #ffffff; /* White background on hover */
   color: #000000; /* Black text on hover */
-  border: 2px solid #000000; /* Black border on hover */
+  border: 1px solid #000000; /* Black border on hover */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
-  transform: translateY(-2px); /* Slight lift effect */
 }
 
 .next-button:not(:disabled):active {
-  transform: translateY(0); /* Reset lift effect when clicked */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Reset shadow when clicked */
 }
 
