@@ -17,16 +17,12 @@ interface QuizData {
     question: Question[];
   };
 }
-interface AttemptedQuestions{
-  questionIndex: number; 
-  correctAnswer: number; 
-  selectedChoice: number|null;
+interface AttemptedQuestions {
+  questionIndex: number;
+  correctAnswer: number;
+  selectedChoice: number | null;
+  viewState: boolean | null;
 }
-
-interface AttemptedQuestionsData{
-  attemptedQuestionsData: AttemptedQuestions[];
-}
-
 
 const QuizPage: React.FC = () => {
   const { level } = useParams<{ level: string }>();
@@ -41,7 +37,11 @@ const QuizPage: React.FC = () => {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [levelTimes, setLevelTimes] = useState<number[]>([]);
   const [attemptedQuestions, setAttemptedQuestions] = useState<number[]>([]);
-  const [attemptedQuestionsData, setAttemptedQuestionsData] = useState<AttemptedQuestions[]>([]);
+  const [attemptedQuestionsData, setAttemptedQuestionsData] = useState<
+    AttemptedQuestions[]
+  >([]);
+  const [selectState, setSelectState] = useState<boolean | null>(null);
+  const [viewState, setViewState] = useState<boolean>(false);
 
   const levels = ["Level 1", "Level 2", "Level 3"]; // Example levels
 
@@ -53,13 +53,14 @@ const QuizPage: React.FC = () => {
           `http://localhost:3000/api/users?level=${level}`
         );
 
-        
         setData(response.data);
         setLoading(false);
-        {/*
+        {
+          /*
           setTimeout(() => {
          }, 500000); //this  is used for delaying the response. might be useful later
-        */}
+        */
+        }
 
         setStartTime(Date.now());
       } catch (err: any) {
@@ -72,31 +73,63 @@ const QuizPage: React.FC = () => {
   }, [level]);
 
   const handleOptionClick = (index: number) => {
-    if (selectedOption !== null) return; // Prevent multiple selections
-
+    setSelectState(true);
     setSelectedOption(index);
-    console.log(selectedOption)
-
-    // console.log([currentQuestion.question,currentQuestion.test_answer,selectedOption])
 
     if (index === data!.test.question[currentQuestionIndex].test_answer) {
       setScore(score + 1);
     }
+
     setLevelTimes([...levelTimes, Date.now() - startTime]);
     setAttemptedQuestions([...attemptedQuestions, currentQuestionIndex]);
   };
 
   const handleNextQuestion = () => {
-    const newAttemptedData: AttemptedQuestions={questionIndex:currentQuestionIndex,correctAnswer:currentQuestion.test_answer,selectedChoice:selectedOption}
-    setAttemptedQuestionsData([...attemptedQuestionsData,newAttemptedData]);
-    setSelectedOption(null);
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    setStartTime(Date.now());
+    
 
-    /* console.log(attemptedQuestionsData); */
+    !selectState &&
+      (() => {
+    
+      
+        setSelectState(null);
+        setSelectedOption(null);
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setStartTime(Date.now());
+      })();
 
+    selectState === true &&
+      (() => {
+      setSelectState(false);
+      setAttemptedQuestionsData([
+        ...attemptedQuestionsData,
+        {
+          questionIndex: currentQuestionIndex,
+          correctAnswer: currentQuestion.test_answer,
+          selectedChoice: selectedOption,
+          viewState: true,
+        },
+      ]);
+        
+      })();
   };
 
+  {
+    /*  const newAttemptedData = {
+      questionIndex: currentQuestionIndex,
+      correctAnswer: currentQuestion.test_answer,
+      selectedChoice: selectedOption,
+    };
+    setAttemptedQuestionsData(prev => [...prev, newAttemptedData]);
+    
+    console.log(attemptedQuestionsData);
+       
+    console.log([
+      currentQuestion.question,
+      currentQuestion.test_answer,
+      selectedOption,
+    ]);
+  */
+  }
   const handleRetry = () => {
     setCurrentQuestionIndex(0);
     setScore(0);
@@ -117,7 +150,7 @@ const QuizPage: React.FC = () => {
   };
 
   const handleQuestionChange = (index: number) => {
-   attemptedQuestions.includes(index) && setCurrentQuestionIndex(index);
+    attemptedQuestions.includes(index) && setCurrentQuestionIndex(index);
   };
 
   if (loading) {
@@ -155,6 +188,29 @@ const QuizPage: React.FC = () => {
 
   const currentQuestion = data.test.question[currentQuestionIndex];
 
+  const questionAttempted= attemptedQuestionsData.some(d=>d.questionIndex===currentQuestionIndex)
+  
+  const getButtonClass = (index: number) => {
+    if (questionAttempted === false) {
+      if (selectedOption === null) return "";
+
+      if (selectState === null || selectState === true) {
+        return index === selectedOption ? "selected" : "";
+      }
+
+      if (selectState === false) {
+        if (index === currentQuestion.test_answer) return "correct withAnim";
+        if (index === selectedOption) return "incorrect withAnim";
+      }
+    }
+    else if (questionAttempted === true) {
+        if (index === attemptedQuestionsData[currentQuestionIndex].correctAnswer) return "correct";
+        if (index === attemptedQuestionsData[currentQuestionIndex].selectedChoice) return "incorrect";
+    }
+
+    return "";
+  };
+
   return (
     <div className="quiz-page">
       <Sidebar
@@ -176,28 +232,27 @@ const QuizPage: React.FC = () => {
             {currentQuestion.answers.map((answer, index) => (
               <button
                 key={index}
-                className={`answer-button ${selectedOption !== null
-                    ? index === currentQuestion.test_answer
-                      ? "correct"
-                      : index === selectedOption
-                        ? "incorrect"
-                        : ""
-                    : ""
-                  }`}
-                onClick={() => { handleOptionClick(index);}}
-                disabled={selectedOption !== null}
+                className={`answer-button ${getButtonClass(index)}`}
+                onClick={() => {
+                  handleOptionClick(index);
+                }}
+                disabled={selectState === false || questionAttempted===true}
               >
                 {answer}
               </button>
             ))}
           </div>
+
           {selectedOption !== null && (
             <button
               className="next-button"
               onClick={handleNextQuestion}
               disabled={selectedOption === null}
             >
-              {currentQuestionIndex + 1 >= data.test.question.length
+              {selectState === true
+                ? "Check Answer"
+                : selectState === false &&
+                  currentQuestionIndex + 1 >= data.test.question.length
                 ? "Finish Quiz"
                 : "Next Question"}
             </button>
@@ -209,3 +264,24 @@ const QuizPage: React.FC = () => {
 };
 
 export default QuizPage;
+
+/*  className={`answer-button ${selectedOption !== null
+                    ? index === currentQuestion.test_answer
+                      ? "correct"
+                      : index === selectedOption
+                        ? "incorrect"
+                        : ""
+                    : ""
+                  }`} */
+
+/*  className={`answer-button ${
+                  selectedOption !== null ?
+                  (selectState === null || selectState === true)
+                    ? index === selectedOption ? "selected":""
+                    : selectState === false ?
+                      index === currentQuestion.test_answer
+                    ? "correct"
+                    : index === selectedOption
+                    ? "incorrect"
+                    : "":"":""
+                }`} */
