@@ -41,7 +41,6 @@ const QuizPage: React.FC = () => {
     AttemptedQuestions[]
   >([]);
   const [selectState, setSelectState] = useState<boolean | null>(null);
-  const [viewState, setViewState] = useState<boolean>(false);
 
   const levels = ["Level 1", "Level 2", "Level 3"]; // Example levels
 
@@ -150,7 +149,7 @@ const QuizPage: React.FC = () => {
   };
 
   const handleQuestionChange = (index: number) => {
-    attemptedQuestions.includes(index) && setCurrentQuestionIndex(index);
+    (attemptedQuestions.includes(index)|| index===(Math.max(...attemptedQuestions)+1)) && setCurrentQuestionIndex(index);
   };
 
   if (loading) {

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../Styles/Sidebar.css'; // Import the Sidebar styles
-import checksvg from"../asset/other/check.svg"
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../Styles/Sidebar.css"; // Import the Sidebar styles
+import checksvg from "../asset/other/check.svg";
 
 interface SidebarProps {
   levels: string[];
@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const confirmLevelChange = () => {
     setShowConfirmation(false);
     onLevelChange(currentLevel);
-    navigate('/levels');
+    navigate("/levels");
   };
 
   const cancelLevelChange = () => {
@@ -52,14 +52,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         className="sidebar-toggle-button"
         onClick={() => setIsVisible(!isVisible)}
       >
-        {isVisible ? '◄' : '►'}
+        {isVisible ? "◄" : "►"}
       </button>
 
       {/* Sidebar */}
 
-      <div className={`sidebar ${isVisible ? 'visible' : ''}`}>
+      <div className={`sidebar ${isVisible ? "visible" : ""}`}>
         <div className="sidebar-content">
-
           {/* Level Box at the Top */}
 
           <div className="level-box">
@@ -74,23 +73,40 @@ const Sidebar: React.FC<SidebarProps> = ({
               <li
                 key={index}
                 className={`question-item ${
-                  index === currentQuestionIndex ? 'active' : ''
+                  index === currentQuestionIndex ? "active" : ""
                 }`}
                 onClick={() => onQuestionChange(index)}
               >
-                <span className="question">Q{index + 1}: {question.question}</span>
+                <span className="question">
+                  Q{index + 1}: <span className="question-content">{question.question}</span>
+                </span>
+                
                 {attemptedQuestions.includes(index) && (
-                  <span className="attempted"><svg width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path className="st0" d="M4 12.6111L8.92308 17.5L20 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" />
-              </svg></span>
+                  <span className="attempted">
+                    <svg
+                      width="2rem"
+                      height="2rem"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        className="st0"
+                        d="M4 12.6111L8.92308 17.5L20 6.5"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
                 )}
               </li>
             ))}
           </ul>
 
           {/* Select Level Button */}
-          
+
           <button
             className="select-level-button"
             onClick={() => handleLevelChange(currentLevel)}
@@ -102,7 +118,10 @@ const Sidebar: React.FC<SidebarProps> = ({
         {/* Confirmation Popup */}
         {showConfirmation && (
           <div className="confirmation-popup">
-            <p>Are you sure you want to change the level? All progress will be lost.</p>
+            <p>
+              Are you sure you want to change the level? All progress will be
+              lost.
+            </p>
             <button onClick={confirmLevelChange}>Yes</button>
             <button onClick={cancelLevelChange}>No</button>
           </div>

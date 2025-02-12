@@ -80,9 +80,8 @@
   font-weight: bold;
 }
 
-.question-item .attempted {
-  color: #2ecc71;
-  font-size: 1.2rem;
+.question-content{
+  
 }
 
 /* Select Level Button */
