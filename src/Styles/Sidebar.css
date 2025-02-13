@@ -151,7 +151,7 @@ p {
   background-color: rgb(185, 185, 185);
   color: black;
   font-weight: bold;
-  box-shadow: 0.5px 0.5px 5px 2px rgb(82, 82, 82);
+  box-shadow: 0.5px 0.5px 4px 1px rgb(82, 82, 82);
 }
 
 /* Select Level Button */

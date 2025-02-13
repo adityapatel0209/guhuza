@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Compareboard from "../Components/compareboard";
 import Profile from "../Components/proflie";
+import "../Styles/Leaderboardpage.css"
 
 export default function Leaderboard() {
   const [selectedUserId, setSelectedUserId] = useState("");
