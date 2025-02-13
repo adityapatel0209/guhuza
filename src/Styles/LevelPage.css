@@ -1,33 +1,197 @@
 .level-page {
-  max-width: 1200px;
-  margin: 10 auto;
-  padding: 20px;
-  text-align: center;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  font-family: 'Inter', sans-serif;
 }
 
 .level-page h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #2d3436;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
 }
 
 .levels-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns */
-  gap: 20px; /* Space between buttons */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.level-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.level-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.15);
 }
 
 .level-button {
-  padding: 30px; /* Larger padding for bigger buttons */
-  font-size: 24px; /* Larger font size */
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #2d3436 0%, #1a1e1f 100%);
+  border-radius: 12px;
   border: none;
-  border-radius: 10px; /* Rounded corners */
-  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .level-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(0.98);
+}
+
+.level-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.score-text {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+/* Enhanced Stars */
+.stars-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.star-filled {
+  color: transparent;
+  background-image: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.star-filled:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+
+.star-empty {
+  color: #e0e0e0;
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+/* Improved Time Display */
+.time-taken {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #444;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.time-icon {
+  font-size: 1.3rem;
+  display: inline-flex;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Score Colors */
+.score-text[style*="green"] {
+  background: rgba(40, 167, 69, 0.15);
+  color: #28a745;
+}
+
+.score-text[style*="yellow"] {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+}
+
+.score-text[style*="red"] {
+  background: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .levels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .level-page h1 {
+    font-size: 2rem;
+  }
+
+  .star-filled,
+  .star-empty {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .levels-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .star-filled,
+  .star-empty {
+    font-size: 1.6rem;
+  }
+
+  .time-taken {
+    font-size: 1rem;
+  }
+}
+
+/* Score Colors */
+.score-text[data-score-color="green"] {
+  background: rgba(40, 167, 69, 0.15);
+  color: #28a745;
+}
+
+.score-text[data-score-color="yellow"] {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+}
+
+.score-text[data-score-color="red"] {
+  background: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
 }
