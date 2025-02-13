@@ -2,9 +2,10 @@ import React from 'react';
 import {  Routes, Route } from 'react-router-dom';
 import LevelPage from './Pages/LevelPage.tsx';
 import QuizPage from './Pages/QuizPage.tsx'
-import Navbar from "./Components/Nav.jsx";
+import Navbar from "./Components/Nav.tsx";
 import Leaderboard from "./Pages/Leaderboardpage.tsx";
 import Homepage from './Pages/Homepage.tsx';
+import "../src/style.css"
 
 const App: React.FC = () => {
   return (

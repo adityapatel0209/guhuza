@@ -132,6 +132,8 @@ const QuizPage: React.FC = () => {
     setLevelTimes([]);
     setStartTime(Date.now());
     setAttemptedQuestions([]);
+    setAttemptedQuestionsData([]);
+    setSelectState(null);
   };
 
   const handleShare = () => {

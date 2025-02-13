@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { userData } from "../delete_testfolder/delete_this_userinfo";
+
+import AnimatedNum from "./AnimatedNumbers";
 import {
   PieChart,
   Pie,
@@ -13,7 +15,6 @@ import {
   CartesianGrid,
 } from "recharts";
 
-import AnimatedNumbers from "react-animated-numbers";
 
 interface profileProps {
   selectedUser: string;
@@ -69,22 +70,22 @@ export default function Profile({ selectedUser }: profileProps) {
                   </div>
 
                   <div className="userStats">
-                    <div className="highestscore props info">
-                      <p className="info-title">Highest Score</p>
-                      <span className="info-data">
-                        <AnimatedNum num={u.stats.highestscore} />
+                    <div>
+                      <p>Highest Score</p>
+                      <span>
+                       {u.stats.highestscore}
                       </span>
                     </div>
-                    <div className="n-attempts props info">
-                      <p className="info-title">Number of Attempts</p>
-                      <span className="info-data">
-                        <AnimatedNum num={u.stats.numberofattempts} />
+                    <div>
+                      <p>Number of Attempts</p>
+                      <span>
+                        {u.stats.numberofattempts}
                       </span>
                     </div>
-                    <div className="o-star props info">
-                      <p className="info-title">Overall Stars</p>
-                      <span className="info-data">
-                        <AnimatedNum num={u.stats.overallstars} />
+                    <div >
+                      <p>Overall Stars</p>
+                      <span>
+                       {u.stats.overallstars}
                       </span>
                     </div>
                     
@@ -104,17 +105,3 @@ export default function Profile({ selectedUser }: profileProps) {
   );
 }
 
-interface AnimatedNumProps {
-  num: number;
-}
-const AnimatedNum = ({ num }: AnimatedNumProps) => {
-  return (
-    <>
-      <AnimatedNumbers
-        includeComma
-        transitions={(index) => ({ type: "string", duration: index + 1 })}
-        animateToNumber={num}
-      />
-    </>
-  );
-};

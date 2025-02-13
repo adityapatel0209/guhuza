@@ -21,52 +21,9 @@ html {
   height: 100%;
   font-family: "Arial", sans-serif;
 }
-
-/* ===== Quiz Page Styles ===== */
-
-/* NAVBAR / HEADER */
-
-header {
-  z-index: 25;
-  background: black;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.7rem 24px 0.7rem 24px;
-  max-width: 1500px;
-  margin: 0 auto;
-}
-
-.logo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.logo img {
-  width: auto;
-  height: 35px;
-}
-
-.nav ul {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  gap: 3rem;
-}
-
-.nav a {
-  text-decoration: none;
-  color: white;
-}
-
-.nav a:hover {
-  text-decoration: underline;
-}
-
 /* LEARDERBOARD */
+
+
 .lb {
   width: 100%;
   display: flex;
@@ -258,13 +215,4 @@ tr:last-child td:last-child {
   font-size: 6rem;
 }
 
-.piechart {
-  background-color: #f0f0f0;
-  width: fit-content;
-}
 
-.linechart {
-  border-radius: 0;
-  padding: 1rem;
-  border: 1px solid black;
-}
