@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { userData } from "../delete_testfolder/delete_this_userinfo";
 
-import AnimatedNum from "./AnimatedNumbers";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
-
-
 interface profileProps {
   selectedUser: string;
 }
@@ -47,8 +32,8 @@ export default function Profile({ selectedUser }: profileProps) {
                       />
                       <div>
                         <h3>{u.username}</h3>
+                        <p>Date Joined : </p>
                         <p>
-                          Date Joined :{" "}
                           {u.datejoined
                             .toDateString()
                             .split(" ")
@@ -67,35 +52,22 @@ export default function Profile({ selectedUser }: profileProps) {
                         ))}
                       </ul>
                     </div>
-                  </div>
-
-                  <div className="userStats">
                     <div>
-                      <p>Highest Score</p>
-                      <span>
-                       {u.stats.highestscore}
-                      </span>
+                      <div>
+                        <p>Highest Score</p>
+                        <span>{u.stats.highestscore}</span>
+                      </div>
+                      <div>
+                        <p>Number of Attempts</p>
+                        <span>{u.stats.numberofattempts}</span>
+                      </div>
+                      <div>
+                        <p>Overall Stars</p>
+                        <span>{u.stats.overallstars}</span>
+                      </div>
                     </div>
-                    <div>
-                      <p>Number of Attempts</p>
-                      <span>
-                        {u.stats.numberofattempts}
-                      </span>
-                    </div>
-                    <div >
-                      <p>Overall Stars</p>
-                      <span>
-                       {u.stats.overallstars}
-                      </span>
-                    </div>
-                    
-                  
-                  
                   </div>
                 </div>
-
-               
-
               </div>
             )}
           </div>
@@ -104,4 +76,3 @@ export default function Profile({ selectedUser }: profileProps) {
     </>
   );
 }
-

@@ -3,3 +3,8 @@ declare module "*.svg" {
     export default content;
   }
   
+declare module "*.pdf" {
+    const content: File;
+    export default content;
+  }
+  

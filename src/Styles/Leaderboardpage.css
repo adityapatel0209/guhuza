@@ -1,0 +1,152 @@
+/* LEARDERBOARD */
+
+
+.lb {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5vh 0;
+    font-size: 1.175rem;
+  }
+  
+  .lb-main {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+  }
+  
+  .lbchild.compare {
+    border: 1px solid black;
+    padding: 1rem;
+  }
+  
+  /* CompareBoard*/
+  
+  caption {
+    text-align: left;
+  }
+  table {
+    width: 1000px;
+    height: 70vh;
+    border-collapse: collapse;
+    /* background-color: #f9f9f9; */
+  }
+  
+  th,
+  td {
+    padding: 1rem 0;
+    text-align: center;
+  }
+  
+  th{
+    border-bottom: 1px solid black;
+  }
+  
+  th {
+    background-color: var(--guhuzu-bg-color);
+  }
+  
+  tr:not(tr:last-child){
+    border-bottom: 1px solid black;
+  }
+  
+  
+  tbody tr {
+    cursor: pointer;
+  
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .bodytr.Active {
+    background-color: #ddd;
+  }
+  
+  /* th:first-child {
+    border-top-left-radius: 10px;
+  }
+  
+  th:last-child {
+    border-top-right-radius: 10px;
+  }
+  
+  tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+  }
+  
+  tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+  }
+   */
+  
+  /* PROFILE SECTION */
+  .profile {
+    width: 350px;
+  }
+  
+  .profileinfo {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+  
+  .profileinfo-main {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+  }
+  
+  
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 1rem;
+  }
+  
+  .profile img {
+    max-height: 120px;
+    align-self: center;
+    border-radius: 10%;
+  }
+  
+  .profileinfogroup-1 {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 1rem;
+    min-height: 168px;
+  }
+  
+  .profileinfo-bio {
+    padding: 0 1rem;
+  }
+  
+
+  .profileinfo-bio h3{
+    margin: 0;
+  }
+  .tags {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px;
+    padding: 0;
+  }
+  
+  .tags li {
+    flex: 1 1 auto;
+    background-color: white;
+    color: #494d52;
+    border: 1px solid #3d444d;
+    text-align: center;
+    border-radius: 1rem;
+    padding: 0.2rem 1rem;
+  }
+  
+  

@@ -1,10 +1,14 @@
+import testpdf from "../delete_testfolder/testpdf.pdf"
+
 interface UserInfo {
   userId: string;
   username: string;
   userbio: string;
   datejoined: Date;
-
   tags: string[];
+  profileshared: number;
+  leaderboardduration: number;
+  resume: File;
   stats: {
     highestscore: number;
     numberofattempts: number;
@@ -16,6 +20,7 @@ interface UserInfo {
       interval4: number;
       interval5: number;
     };
+
   };
 }
 
@@ -27,6 +32,9 @@ export const userData: UserInfo[] = [
       "Passionate gamer and coder, always looking for the next challenge.",
     datejoined: new Date("2023-05-14"),
     tags: ["gaming", "coding"],
+    profileshared: 15,
+    leaderboardduration: 30,
+    resume: testpdf,
     stats: {
       highestscore: 500,
       numberofattempts: 7,
@@ -46,6 +54,9 @@ export const userData: UserInfo[] = [
     userbio: "Tech enthusiast and aspiring developer, loves problem-solving.",
     datejoined: new Date("2022-11-08"),
     tags: ["web development", "technology"],
+    profileshared: 10,
+    leaderboardduration: 25,
+    resume: testpdf,
     stats: {
       highestscore: 750,
       numberofattempts: 10,
@@ -66,6 +77,9 @@ export const userData: UserInfo[] = [
       "Enjoys coding and exploring new tech trends, loves a good challenge.",
     datejoined: new Date("2023-02-21"),
     tags: ["AI", "programming"],
+    profileshared: 20,
+    leaderboardduration: 40,
+    resume: testpdf,
     stats: {
       highestscore: 600,
       numberofattempts: 5,
@@ -85,6 +99,9 @@ export const userData: UserInfo[] = [
     userbio: "Casual gamer and part-time blogger, interested in UI/UX design.",
     datejoined: new Date("2021-12-15"),
     tags: ["gaming", "blogging", "UI/UX"],
+    profileshared: 8,
+    leaderboardduration: 22,
+    resume: testpdf,
     stats: {
       highestscore: 11450,
       numberofattempts: 6,
@@ -104,6 +121,9 @@ export const userData: UserInfo[] = [
     userbio: "Loves web development and creating engaging user experiences.",
     datejoined: new Date("2023-07-03"),
     tags: ["web development", "design"],
+    profileshared: 20,
+    leaderboardduration: 40,
+    resume: testpdf,
     stats: {
       highestscore: 820,
       numberofattempts: 9,
@@ -123,6 +143,9 @@ export const userData: UserInfo[] = [
     userbio: "Cybersecurity enthusiast with a passion for ethical hacking.",
     datejoined: new Date("2022-04-28"),
     tags: ["cybersecurity", "ethical hacking"],
+    profileshared: 20,
+    leaderboardduration: 40,
+    resume: testpdf,
     stats: {
       highestscore: 390,
       numberofattempts: 4,
@@ -142,6 +165,9 @@ export const userData: UserInfo[] = [
     userbio: "Software developer with an interest in AI and machine learning.",
     datejoined: new Date("2021-09-19"),
     tags: ["AI", "machine learning", "software development"],
+    profileshared: 20,
+    leaderboardduration: 40,
+    resume: testpdf,
     stats: {
       highestscore: 670,
       numberofattempts: 12,
@@ -161,6 +187,9 @@ export const userData: UserInfo[] = [
     userbio: "Backend developer who loves database optimization and APIs.",
     datejoined: new Date("2023-03-11"),
     tags: ["backend development", "databases"],
+    profileshared: 20,
+    leaderboardduration: 40,
+    resume: testpdf,
     stats: {
       highestscore: 720,
       numberofattempts: 8,
@@ -181,6 +210,9 @@ export const userData: UserInfo[] = [
       "Aspiring data scientist, passionate about big data and analytics.",
     datejoined: new Date("2022-08-05"),
     tags: ["data science", "big data", "analytics"],
+    profileshared: 20,
+    leaderboardduration: 40,
+    resume: testpdf,
     stats: {
       highestscore: 590,
       numberofattempts: 11,
@@ -200,6 +232,9 @@ export const userData: UserInfo[] = [
     userbio: "Creative writer and digital artist exploring game development.",
     datejoined: new Date("2023-01-25"),
     tags: ["writing", "game development", "digital art"],
+    profileshared: 20,
+    leaderboardduration: 40,
+    resume: testpdf,
     stats: {
       highestscore: 480,
       numberofattempts: 7,

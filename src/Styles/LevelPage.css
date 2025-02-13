@@ -1,4 +1,49 @@
 
+
+.userStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-height: fit-content;
+  row-gap: 2rem;
+}
+
+.userStats > div {
+  flex: 1 1 auto;
+  min-width: 150px;
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.info p {
+  margin: 0;
+}
+
+.info {
+  padding: 1rem;
+}
+
+.highestscore {
+  background-color: var(--color4);
+}
+
+.n-attempts {
+  background-color: var(--color3);
+}
+.o-star {
+  background-color: var(--color2);
+}
+
+.info-title {
+  font-size: 1.17rem;
+  font-weight: 600;
+}
+.info-data {
+  font-size: 6rem;
+}
+
+
+
 .level-page {
   max-width: 1200px;
   margin: 10 auto;
