@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Styles/Sidebar.css"; // Import the Sidebar styles
+import "../Styles/Sidebar.css";
 import guhuza from "../asset/logos/guhuza.svg";
 import guhuzag from "../asset/logos/guhuza_g.svg";
 import { AttemptedQuestions } from "../Pages/QuizPage";
@@ -26,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onLevelChange,
   onQuestionChange,
 }) => {
-  const [isVisible, setIsVisible] = useState(false); // State to control sidebar visibility
+  const [isExpanded, setIsExpanded] = useState(true);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
 
@@ -56,185 +56,137 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const questionItemClass = (index: number) => {
-    if (index === currentQuestionIndex) return "active";
-
+    if (index === currentQuestionIndex) return "sidebar-active";
     if (attemptedQuestions.includes(index)) {
-      const result = attemptedResult(index) ? "goodResult" : "badResult";
-
-      return `completed ${result}`;
+      return attemptedResult(index) ? "sidebar-completed sidebar-good" : "sidebar-completed sidebar-bad";
     }
     return "";
   };
 
+  const truncateQuestion = (text: string, maxLength: number = 5) => {
+    const words = text.split(' ');
+    return words.slice(0, maxLength).join(' ') + (words.length > maxLength ? '...' : '');
+  };
+
   return (
-    <>
-      {/* Toggle Button */}
-      <div className="sidebar-container">
-        {/* Sidebar */}
+    <div className={`sidebar-container ${isExpanded ? "sidebar-expanded" : "sidebar-collapsed"}`}>
+      <div className="sidebar">
+        <button
+          className="sidebar-toggle"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? (
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+            </svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+            </svg>
+          )}
+        </button>
 
-        <div className={`sidebar ${isVisible ? "visible" : "small"}`}>
-          <button
-            className="sidebar-toggle-button"
-            onClick={() => {
-              setIsVisible(!isVisible);
-              console.log(attemptedQuestionsData);
-              console.log(attemptedQuestions);
-            }}
-          >
-            {isVisible ? (
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 512 512"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  id="Page-1"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <g
-                    id="drop"
-                    fill="#fff"
-                    transform="translate(32, 42.666667)  rotate(-90, 256, 256)"
-                  >
-                    <path className="tg1"
-                      d="M246.312928,5.62892705 C252.927596,9.40873724 258.409564,14.8907053 262.189374,21.5053731 L444.667042,340.84129 C456.358134,361.300701 449.250007,387.363834 428.790595,399.054926 C422.34376,402.738832 415.04715,404.676552 407.622001,404.676552 L42.6666667,404.676552 C19.1025173,404.676552 7.10542736e-15,385.574034 7.10542736e-15,362.009885 C7.10542736e-15,354.584736 1.93772021,347.288125 5.62162594,340.84129 L188.099293,21.5053731 C199.790385,1.04596203 225.853517,-6.06216498 246.312928,5.62892705 Z"
-                      id="Combined-Shape"
-                    ></path>
-                  </g>
-                </g>
-              </svg>
-            ) : (
-              <svg
-                width="1rem"
-                height="1rem"
-                viewBox="0 0 512 512"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  id="Page-1"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <g
-                    id="drop"
-                    fill="#fff"
-                    transform="translate(32, 42.666667) rotate(90, 256, 256)"
-                  >
-                    <path className="tg2"
-                      d="M246.312928,5.62892705 C252.927596,9.40873724 258.409564,14.8907053 262.189374,21.5053731 L444.667042,340.84129 C456.358134,361.300701 449.250007,387.363834 428.790595,399.054926 C422.34376,402.738832 415.04715,404.676552 407.622001,404.676552 L42.6666667,404.676552 C19.1025173,404.676552 7.10542736e-15,385.574034 7.10542736e-15,362.009885 C7.10542736e-15,354.584736 1.93772021,347.288125 5.62162594,340.84129 L188.099293,21.5053731 C199.790385,1.04596203 225.853517,-6.06216498 246.312928,5.62892705 Z"
-                      id="Combined-Shape"
-                    ></path>
-                  </g>
-                </g>
-              </svg>
-            )}
-          </button>
+        <div className="sidebar-content">
+          {isExpanded ? (
+            <>
+              <div className="sidebar-header">
+                <div className="sidebar-level-badge">
+                  <span className="sidebar-level-icon">⚡</span>
+                  Level {currentLevel}
+                </div>
+                <div className="sidebar-progress">
+                  <div 
+                    className="sidebar-progress-bar" 
+                    style={{ width: `${(currentQuestionIndex + 1) / questions.length * 100}%` }}
+                  />
+                </div>
+              </div>
 
-          <div className="sidebar-content">
-            <div className="level-box">
-              <h2>Level: {currentLevel}</h2>
-              <div className="level-box-small">
-                <h1>L</h1>
-                <p>{currentLevel}</p>
+              <ul className="sidebar-questions">
+                {questions.map((question, index) => (
+                  <li
+                    key={index}
+                    className={`sidebar-question-item ${questionItemClass(index)}`}
+                    onClick={() => onQuestionChange(index)}
+                  >
+                    <div className="sidebar-status-indicator">
+                      {attemptedQuestions.includes(index) ? (
+                        attemptedResult(index) ? (
+                          <div className="sidebar-check-bubble">✓</div>
+                        ) : (
+                          <div className="sidebar-cross-bubble">✕</div>
+                        )
+                      ) : (
+                        <div className="sidebar-number-bubble">{index + 1}</div>
+                      )}
+                    </div>
+                    <div className="sidebar-question-content">
+                      <span className="sidebar-question-text">
+                        {truncateQuestion(question.question)}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className="sidebar-level-button"
+                onClick={() => handleLevelChange(currentLevel)}
+              >
+                🏆 Change Level
+              </button>
+            </>
+          ) : (
+            <div className="sidebar-collapsed-view">
+              <div className="sidebar-mini-header">
+                <span className="sidebar-level-pill">Lv.{currentLevel}</span>
+              </div>
+              <div className="sidebar-mini-list">
+                {questions.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`sidebar-mini-item ${questionItemClass(index)}`}
+                    onClick={() => onQuestionChange(index)}
+                  >
+                    <div className="sidebar-mini-bubble">
+                      {attemptedQuestions.includes(index) ? (
+                        attemptedResult(index) ? (
+                          <span className="sidebar-mini-check">✓</span>
+                        ) : (
+                          <span className="sidebar-mini-cross">✕</span>
+                        )
+                      ) : (
+                        index + 1
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Questions List */}
-            {/* <div className="question-title">
-              <h3>Questions</h3>
-            </div> */}
-
-            <ul className="questions-list">
-              {questions.map((question, index) => (
-                <li
-                  key={index}
-                  className={`question-item ${questionItemClass(index)}`}
-                  onClick={() => onQuestionChange(index)}
-                >
-                  <span className="question">
-                    <span className="question-no">Q{index + 1}</span>
-                    <span className="question-content">
-                      . {question.question}
-                    </span>
-                  </span>
-
-                  <span className="attempted">
-                    {attemptedQuestions.includes(index) ? (
-                      attemptedResult(index) ? (
-                        <svg
-                          width="2rem"
-                          height="2rem"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            className="st0"
-                            d="M4 12.6111L8.92308 17.5L20 6.5"
-                            stroke="#06be31"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          width="2rem"
-                          height="2rem"
-                          viewBox="0 0 24 24"
-                          fill="#b80214"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            className="st1"
-                            d="M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585 15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z"
-                          />
-                        </svg>
-                      )
-                    ) : (
-                      ""
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            {/* Select Level Button */}
-
-            <button
-              className="select-level-button"
-              onClick={() => handleLevelChange(currentLevel)}
-            >
-              Next Level
-            </button>
-          </div>
-
-          {/* Confirmation Popup */}
-          {showConfirmation && (
-            <div className="confirmation-popup">
-              <p>
-                Are you sure you want to change the level? All progress will be
-                lost.
-              </p>
-              <button onClick={confirmLevelChange}>Yes</button>
-              <button onClick={cancelLevelChange}>No</button>
-            </div>
           )}
-          <div className="bottom-logo">
-            <img className="guhuzalogo1" src={guhuza} alt="" />
-            <img className="guhuzalogo2" src={guhuzag} alt="" />
+        </div>
+
+        {showConfirmation && (
+          <div className="sidebar-confirmation-modal">
+            <div className="sidebar-modal-content">
+              <p>Are you sure you want to change levels? Current progress will be lost.</p>
+              <div className="sidebar-modal-actions">
+                <button className="sidebar-confirm-btn" onClick={confirmLevelChange}>
+                  Confirm
+                </button>
+                <button className="sidebar-cancel-btn" onClick={cancelLevelChange}>
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
+        )}
+
+        <div className="sidebar-branding">
+          <img src={isExpanded ? guhuza : guhuzag} alt="Logo" />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
