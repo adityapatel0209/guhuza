@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import "../Styles/scorecard.css";
 import mascot_good from "../asset/mascot_svgs/Guzuha-04.svg";
 import mascot_mid from "../asset/mascot_svgs/Guzuha-02.svg";
@@ -10,6 +11,8 @@ interface ScorecardProps {
   totalQuestions: number;
   totalTime: number;
   levelTimes: number[];
+  level: number;
+  username: string;
   onRetry: () => void;
   onShare: () => void;
 }
@@ -19,38 +22,42 @@ const Scorecard: React.FC<ScorecardProps> = ({
   totalQuestions,
   totalTime,
   levelTimes,
+  level,
+  username,
   onRetry,
   onShare,
 }) => {
- // correctAnswers = 10;
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
   const averageTimePerQuestion = (totalTime / totalQuestions).toFixed(2);
   const fastestTime = Math.min(...levelTimes);
-  const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+  const stars = Math.round((accuracy / 100) * 5);
 
-  // Calculate stars based on score percentage
-  const stars = Math.round((scorePercentage / 100) * 5);
+  const mascotMessages = [
+    { image: mascot_bad, message: "You can do better" },
+    { image: mascot_mid, message: "Good job" },
+    { image: mascot_good, message: "Perfect!" },
+  ];
 
-  const mascotMessage = ([] = [
-    { image:  mascot_good , message: "Prefect!" },
-    { image:  mascot_mid , message: "Good job" },
-    { image:  mascot_bad , message: "You can do better" },
-  ]);
+  const mascotIndex = correctAnswers >= 8 ? 2 : correctAnswers >= 5 ? 1 : 0;
+  const mascot = mascotMessages[mascotIndex];
 
-  const handleMascotMesage = (item:number) => {
-    return (
-      <>
-          <div className="speechbubble-container">
-              <img src={speechbubble} className="sb" alt="speechbubble" />
-              <p className="speech-text">{mascotMessage[item].message}</p>
-            </div>
-            <div className="guhuza-mascot">
-              <img className="mascot-svg" src={mascotMessage[item].image} alt="mascot" />
-            </div>
-      
-      </>
-    )
-  }
+  useEffect(() => {
+    const updateHighestScore = async () => {
+      if (!username) return;
+      try {
+        await axios.post("http://localhost:3001/api/update-highest-score", {
+          username,
+          level,
+          highest_score: correctAnswers,
+          time_taken: totalTime,
+        });
+      } catch (err) {
+        console.error("Failed to update highest score:", err);
+      }
+    };
+
+    if (correctAnswers > 0) updateHighestScore();
+  }, [correctAnswers, totalTime, level, username]);
 
   return (
     <div className="leaderboard">
@@ -62,37 +69,27 @@ const Scorecard: React.FC<ScorecardProps> = ({
         </div>
         <div className="stats-grid-container">
           <div className="stats-grid">
-            <div className="stat-card">
-              <h3>Correct Answers</h3>
-              <p>
-                {correctAnswers}/{totalQuestions}
-              </p>
-            </div>
-            <div className="stat-card">
-              <h3>Total Time</h3>
-              <p>{totalTime} sec</p>
-            </div>
-            <div className="stat-card">
-              <h3>Accuracy</h3>
-              <p>{accuracy}%</p>
-            </div>
-            <div className="stat-card">
-              <h3>Fastest Answer</h3>
-              <p>{fastestTime} sec</p>
-            </div>
-            <div className="stat-card">
-              <h3>Avg. Time Per Question</h3>
-              <p>{averageTimePerQuestion} sec</p>
-            </div>
-            <div className="stat-card">
-              <h3>Score Percentage</h3>
-              <p>{scorePercentage}%</p>
-            </div>
+            {[
+              { title: "Correct Answers", value: `${correctAnswers}/${totalQuestions}` },
+              { title: "Total Time", value: `${totalTime} sec` },
+              { title: "Accuracy", value: `${accuracy}%` },
+              { title: "Fastest Answer", value: `${fastestTime} sec` },
+              { title: "Avg. Time Per Question", value: `${averageTimePerQuestion} sec` },
+            ].map((stat, index) => (
+              <div key={index} className="stat-card">
+                <h3>{stat.title}</h3>
+                <p>{stat.value}</p>
+              </div>
+            ))}
           </div>
           <div className="guhuza-mascot-container">
-          
-            {correctAnswers >= 8 ? handleMascotMesage(0) : correctAnswers >= 5 ? handleMascotMesage(1) : handleMascotMesage(2)}
-
+            <div className="speechbubble-container">
+              <img src={speechbubble} className="sb" alt="speechbubble" />
+              <p className="speech-text">{mascot.message}</p>
+            </div>
+            <div className="guhuza-mascot">
+              <img className="mascot-svg" src={mascot.image} alt="mascot" />
+            </div>
           </div>
         </div>
         <div className="leaderboard-buttons">

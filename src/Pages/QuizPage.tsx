@@ -132,8 +132,6 @@ const QuizPage: React.FC = () => {
     setLevelTimes([]);
     setStartTime(Date.now());
     setAttemptedQuestions([]);
-    setAttemptedQuestionsData([]);
-    setSelectState(null);
   };
 
   const handleShare = () => {
@@ -174,13 +172,15 @@ const QuizPage: React.FC = () => {
     const totalTime = levelTimes.reduce((acc, time) => acc + time, 0);
     return (
       <Scorecard
-        correctAnswers={score}
-        totalQuestions={data.test.question.length}
-        totalTime={totalTime / 1000}
-        levelTimes={levelTimes.map((time) => time / 1000)}
-        onRetry={handleRetry}
-        onShare={handleShare}
-      />
+      correctAnswers={score}
+      totalQuestions={data.test.question.length}
+      totalTime={totalTime}
+      levelTimes={levelTimes.map((time) => time / 1000)}
+      onRetry={handleRetry}
+      onShare={handleShare}
+      level={parseInt(level || "1")}
+      username="player1" // Replace with dynamic username if available
+    />
     );
   }
 
