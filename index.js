@@ -29,6 +29,25 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
+app.post('/api/update-highest-score', async (req, res) => {
+  const { username, level, highest_score, time_taken } = req.body;
+
+  try {
+    const db = await dbPromise;
+    const result = await db.run(
+      `INSERT INTO highest_scores (username, level, highest_score, time_taken)
+       VALUES (?, ?, ?, ?)
+       ON CONFLICT(username, level)
+       DO UPDATE SET highest_score = excluded.highest_score, time_taken = excluded.time_taken
+       WHERE excluded.highest_score > highest_scores.highest_score`,
+      [username, level, highest_score, time_taken]
+    );
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
