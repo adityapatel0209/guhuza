@@ -34,7 +34,7 @@ export const userData: UserInfo[] = [
     tags: ["gaming", "coding"],
     profileshared: 15,
     leaderboardduration: 30,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 500,
       numberofattempts: 7,
@@ -56,7 +56,7 @@ export const userData: UserInfo[] = [
     tags: ["web development", "technology"],
     profileshared: 10,
     leaderboardduration: 25,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 750,
       numberofattempts: 10,
@@ -79,7 +79,7 @@ export const userData: UserInfo[] = [
     tags: ["AI", "programming"],
     profileshared: 20,
     leaderboardduration: 40,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 600,
       numberofattempts: 5,
@@ -101,7 +101,7 @@ export const userData: UserInfo[] = [
     tags: ["gaming", "blogging", "UI/UX"],
     profileshared: 8,
     leaderboardduration: 22,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 11450,
       numberofattempts: 6,
@@ -123,7 +123,7 @@ export const userData: UserInfo[] = [
     tags: ["web development", "design"],
     profileshared: 20,
     leaderboardduration: 40,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 820,
       numberofattempts: 9,
@@ -145,7 +145,7 @@ export const userData: UserInfo[] = [
     tags: ["cybersecurity", "ethical hacking"],
     profileshared: 20,
     leaderboardduration: 40,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 390,
       numberofattempts: 4,
@@ -167,7 +167,7 @@ export const userData: UserInfo[] = [
     tags: ["AI", "machine learning", "software development"],
     profileshared: 20,
     leaderboardduration: 40,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 670,
       numberofattempts: 12,
@@ -189,7 +189,7 @@ export const userData: UserInfo[] = [
     tags: ["backend development", "databases"],
     profileshared: 20,
     leaderboardduration: 40,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 720,
       numberofattempts: 8,
@@ -212,7 +212,7 @@ export const userData: UserInfo[] = [
     tags: ["data science", "big data", "analytics"],
     profileshared: 20,
     leaderboardduration: 40,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 590,
       numberofattempts: 11,
@@ -234,7 +234,7 @@ export const userData: UserInfo[] = [
     tags: ["writing", "game development", "digital art"],
     profileshared: 20,
     leaderboardduration: 40,
-    resume: testpdf,
+    resume: new File([testpdf], 'testpdf.pdf'),
     stats: {
       highestscore: 480,
       numberofattempts: 7,

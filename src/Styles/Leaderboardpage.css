@@ -12,7 +12,7 @@
   .lb-main {
     display: flex;
     flex-direction: row;
-    gap: 3rem;
+    gap: 2rem;
   }
   
   .lbchild.compare {
@@ -26,7 +26,7 @@
     text-align: left;
   }
   table {
-    width: 1000px;
+    width: 1100px;
     height: 70vh;
     border-collapse: collapse;
     /* background-color: #f9f9f9; */
@@ -66,6 +66,11 @@
   .bodytr.Active {
     background-color: #ddd;
   }
+
+  .resume-section{
+    color:blue;
+    cursor: pointer;
+  }
   
   /* th:first-child {
     border-top-left-radius: 10px;
@@ -86,7 +91,7 @@
   
   /* PROFILE SECTION */
   .profile {
-    width: 350px;
+    width: 300px;
   }
   
   .profileinfo {
@@ -106,7 +111,7 @@
     display: flex;
     flex-direction: column;
     border: 1px solid black;
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
   }
   
   .profile img {
@@ -121,6 +126,7 @@
     gap: 2rem;
     padding: 1rem;
     min-height: 168px;
+    font-size: 1rem;
   }
   
   .profileinfo-bio {
@@ -149,4 +155,10 @@
     padding: 0.2rem 1rem;
   }
   
-  
+  .u-stats{
+    padding: 1rem;
+  }
+
+  .u-stats > div{
+    display: flex;
+  }

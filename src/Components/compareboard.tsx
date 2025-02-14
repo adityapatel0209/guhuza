@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { userData } from "../delete_testfolder/delete_this_userinfo";
+// import {Document, Page} from "react-pdf"
+
 
 interface compareProps {
   Clicked: (item: string) => void;
@@ -11,6 +13,10 @@ export default function Compareboard({ Clicked }: compareProps) {
   
   const handleClickedUser = (item:string) => {
     setClickeduser(item)
+  }
+
+  const handleResumeClick = () => {
+    
   }
 
   useEffect(() => {
@@ -27,12 +33,20 @@ export default function Compareboard({ Clicked }: compareProps) {
               <th>Rank</th>
               <th>Name</th>
               <th>Highest Score</th>
+              <th>Profile Shared</th>
+              <th>Duration on Leaderboard</th>
+              <th>Resume</th>
             </tr>
           </thead>
           <tbody>
             {userData.map((u, index) => (
               <tr className={`bodytr ${clickedUser===u.userId && "Active"}` } key={index} onClick={() => handleClickedUser(u.userId)}>
-                <td>{index+1}</td> <td>{u.username}</td> <td>{u.stats.highestscore}</td>
+                <td>{index + 1}</td>
+                <td>{u.username}</td>
+                <td>{u.stats.highestscore}</td>
+                <td>{u.profileshared}</td>
+                <td>{u.leaderboardduration} days</td>
+                <td className="resume-section" >{u.resume.name}</td>
               </tr>
             ))}
           </tbody>
@@ -41,3 +55,4 @@ export default function Compareboard({ Clicked }: compareProps) {
     </>
   );
 }
+

@@ -4,7 +4,7 @@ declare module "*.svg" {
   }
   
 declare module "*.pdf" {
-    const content: File;
+    const content: string;
     export default content;
   }
   

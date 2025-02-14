@@ -10,6 +10,7 @@ interface HighestScore {
   time_taken: number;
 }
 
+
 export default function LevelPage() {
   const navigate = useNavigate();
   const levels = Array.from({ length: 50 }, (_, i) => i + 1);
