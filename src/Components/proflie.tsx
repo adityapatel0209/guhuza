@@ -52,18 +52,19 @@ export default function Profile({ selectedUser }: profileProps) {
                         ))}
                       </ul>
                     </div>
-                    <div>
+                   
+                    <div className="u-stats">
                       <div>
                         <p>Highest Score</p>
-                        <span>{u.stats.highestscore}</span>
+                        <span>: {u.stats.highestscore}</span>
                       </div>
                       <div>
                         <p>Number of Attempts</p>
-                        <span>{u.stats.numberofattempts}</span>
+                        <span>: {u.stats.numberofattempts}</span>
                       </div>
                       <div>
                         <p>Overall Stars</p>
-                        <span>{u.stats.overallstars}</span>
+                        <span>: {u.stats.overallstars}</span>
                       </div>
                     </div>
                   </div>
