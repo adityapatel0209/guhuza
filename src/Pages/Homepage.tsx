@@ -5,6 +5,10 @@ import { FiAward, FiBarChart, FiUsers, FiClock, FiBook, FiCheckCircle, FiTrendin
 import '../Styles/HomePage.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import stock1 from "../asset/other/stock2.webp"
+import stock2 from "../asset/other/stock1.webp" 
+import stock3 from "../asset/other/stock4.jpg"  
+import stock4 from "../asset/other/stock5.jpg" 
 
 const HomePage = () => {
   useEffect(() => {
@@ -51,7 +55,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="hero-image">
-          <img src="https://source.unsplash.com/random/800x600/?career,job" alt="Career" />
+          <img src="../src/asset/other/guhuzauser.png" alt="Career" />
         </div>
       </section>
 
@@ -60,28 +64,28 @@ const HomePage = () => {
         <h2 className="section-title">Why Take Guhuza Quizzes?</h2>
         <Slider {...settings}>
           <div className="carousel-card">
-            <img src="https://source.unsplash.com/random/800x600/?learning" alt="Boost Job Readiness" />
+            <img src={stock1} alt="Boost Job Readiness" />
             <div className="carousel-content">
               <h3>Boost Job Readiness</h3>
               <p>Improve industry knowledge with real-world scenarios and strengthen problem-solving skills.</p>
             </div>
           </div>
           <div className="carousel-card">
-            <img src="https://source.unsplash.com/random/800x600/?employer" alt="Get Noticed by Employers" />
+            <img src={stock2} alt="Get Noticed by Employers" />
             <div className="carousel-content">
               <h3>Get Noticed by Employers</h3>
               <p>Top scorers are highlighted for potential job opportunities.</p>
             </div>
           </div>
           <div className="carousel-card">
-            <img src="https://source.unsplash.com/random/800x600/?reward" alt="Compete & Earn Rewards" />
+            <img src={stock3} alt="Compete & Earn Rewards" />
             <div className="carousel-content">
               <h3>Compete & Earn Rewards</h3>
               <p>Earn badges, certifications, and exclusive prizes.</p>
             </div>
           </div>
           <div className="carousel-card">
-            <img src="https://source.unsplash.com/random/800x600/?progress" alt="Track Your Progress" />
+            <img src={stock4} alt="Track Your Progress" />
             <div className="carousel-content">
               <h3>Track Your Progress</h3>
               <p>Personalized scorecards and recommendations for improvement.</p>
