@@ -241,3 +241,122 @@
   background: rgba(220, 53, 69, 0.15);
   color: #dc3545;
 }
+
+.main-heading {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #2d3436;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #2d3436 0%, #1a1e1f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sub-heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #2d3436;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #2d3436 0%, #1a1e1f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.insight-section {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.insight-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.insight-item {
+  flex: 1 1 40%;
+  margin: 10px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px -4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insight-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.15);
+}
+
+.insight-heading {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #2d3436;
+  font-weight: 600;
+  text-align: center;
+}
+
+.insight-item p, .insight-item ul {
+  font-size: 1rem;
+  color: #444;
+}
+
+.insight-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.insight-item ul li {
+  margin-bottom: 8px;
+  padding: 10px;
+  background: linear-gradient(135deg, #2d3436 0%, #1a1e1f 100%);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.insight-item ul li:hover {
+  transform: scale(0.98);
+  background: linear-gradient(135deg, #1a1e1f 0%, #2d3436 100%);
+}
+
+.total-score {
+  text-align: center;
+  animation: glow 1.5s infinite alternate;
+}
+
+.total-score h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3436;
+}
+
+.total-score p {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3436;
+  margin: 0;
+}
+
+.total-score .stars-container {
+  margin-top: 10px;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ffd700;
+  }
+  to {
+    box-shadow: 0 0 20px #ff8c00, 0 0 30px #ff8c00, 0 0 40px #ff8c00, 0 0 50px #ff8c00;
+  }
+}

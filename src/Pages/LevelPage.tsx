@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/LevelPage.css";
-import Analytics from "../Components/Analytics";
 import axios from "axios";
 
 interface HighestScore {
@@ -9,7 +8,6 @@ interface HighestScore {
   highest_score: number;
   time_taken: number;
 }
-
 
 export default function LevelPage() {
   const navigate = useNavigate();
@@ -48,10 +46,67 @@ export default function LevelPage() {
     return 'red';
   };
 
+  const totalScore = highestScores.reduce((acc, score) => acc + score.highest_score * 10, 0);
+
+  const sortedScores = [...highestScores].sort((a, b) => a.highest_score - b.highest_score);
+  const top5LowestScores = sortedScores.slice(0, 5);
+  const top5BestScores = sortedScores.slice(-5).reverse();
+
   return (
     <div className="level-page">
-    
-      <h1>Select Level</h1>
+      <h1 className="main-heading">Select Level</h1>
+      <div className="insight-section">
+        <h2 className="sub-heading">Insights</h2>
+        <div className="insight-content">
+          <div className="insight-item">
+            <h3 className="insight-heading">Top 5 Levels Needing Improvement</h3>
+            <ul>
+              {top5LowestScores.map(score => (
+                <li 
+                  key={score.level} 
+                  className="insight-level"
+                  onClick={() => handleLevelClick(score.level)}
+                >
+                  Level {score.level}
+                  <div 
+                    className="score-text" 
+                    data-score-color={getScoreColor(score.highest_score)}
+                  >
+                    {score.highest_score * 10} / 100
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="insight-item">
+            <h3 className="insight-heading">Top 5 Best Levels</h3>
+            <ul>
+              {top5BestScores.map(score => (
+                <li 
+                  key={score.level} 
+                  className="insight-level"
+                  onClick={() => handleLevelClick(score.level)}
+                >
+                  Level {score.level}
+                  <div 
+                    className="score-text" 
+                    data-score-color={getScoreColor(score.highest_score)}
+                  >
+                    {score.highest_score * 10} / 100
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="insight-item total-score">
+            <h3 className="insight-heading">Total Score</h3>
+            <p>{totalScore} / 5000</p>
+            <div className="stars-container">
+              {getStars(totalScore / 500)}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="levels-grid">
         {levels.map((level) => {
           const highestScore = highestScores.find(score => score.level === level);
