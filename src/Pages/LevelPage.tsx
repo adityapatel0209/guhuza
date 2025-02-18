@@ -50,7 +50,7 @@ export default function LevelPage() {
 
   return (
     <div className="level-page">
-      <Analytics />
+    
       <h1>Select Level</h1>
       <div className="levels-grid">
         {levels.map((level) => {
