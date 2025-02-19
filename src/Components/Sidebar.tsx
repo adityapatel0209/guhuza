@@ -133,7 +133,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 className="sidebar-level-button"
                 onClick={() => handleLevelChange(currentLevel)}
               >
-                🏆 Change Level
+                 Change Level
               </button>
             </>
           ) : (
