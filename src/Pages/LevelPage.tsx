@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/LevelPage.css";
 import axios from "axios";
+import Insights from "../Components/Insights.tsx";
 
 interface HighestScore {
   level: number;
@@ -47,6 +48,9 @@ export default function LevelPage() {
   };
 
   const totalScore = highestScores.reduce((acc, score) => acc + score.highest_score * 10, 0);
+  const totalTime = highestScores.reduce((acc, score) => acc + score.time_taken, 0);
+  const averageScore = (totalScore / highestScores.length).toFixed(2);
+  const levelsCompleted = highestScores.length;
 
   const sortedScores = [...highestScores].sort((a, b) => a.highest_score - b.highest_score);
   const top5LowestScores = sortedScores.slice(0, 5);
@@ -54,92 +58,72 @@ export default function LevelPage() {
 
   return (
     <div className="level-page">
-      <h1 className="main-heading">Select Level</h1>
-      <div className="insight-section">
-        <h2 className="sub-heading">Insights</h2>
-        <div className="insight-content">
-          <div className="insight-item">
-            <h3 className="insight-heading">Top 5 Levels Needing Improvement</h3>
-            <ul>
-              {top5LowestScores.map(score => (
-                <li 
-                  key={score.level} 
-                  className="insight-level"
-                  onClick={() => handleLevelClick(score.level)}
-                >
-                  Level {score.level}
-                  <div 
-                    className="score-text" 
-                    data-score-color={getScoreColor(score.highest_score)}
-                  >
-                    {score.highest_score * 10} / 100
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="insight-item">
-            <h3 className="insight-heading">Top 5 Best Levels</h3>
-            <ul>
-              {top5BestScores.map(score => (
-                <li 
-                  key={score.level} 
-                  className="insight-level"
-                  onClick={() => handleLevelClick(score.level)}
-                >
-                  Level {score.level}
-                  <div 
-                    className="score-text" 
-                    data-score-color={getScoreColor(score.highest_score)}
-                  >
-                    {score.highest_score * 10} / 100
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="insight-item total-score">
-            <h3 className="insight-heading">Total Score</h3>
-            <p>{totalScore} / 5000</p>
-            <div className="stars-container">
-              {getStars(totalScore / 500)}
-            </div>
-          </div>
-        </div>
+      {/* Banner Section */}
+      <div className="banner">
+        <h1 className="main-heading">Select Level</h1>
+        <p className="page-description">
+          Welcome to the Level Selection page! Here, you can choose from 50 levels to test your skills.
+          Track your progress, improve your scores, and aim for the top. Use the insights below to
+          identify areas for improvement and celebrate your best performances.
+        </p>
       </div>
-      <div className="levels-grid">
-        {levels.map((level) => {
-          const highestScore = highestScores.find(score => score.level === level);
-          return (
-            <div key={level} className="level-card">
-              <button
-                className="level-button"
-                onClick={() => handleLevelClick(level)}
-              >
-                <div className="level-number">{level}</div>
+
+      {/* Container for Layout */}
+      <div className="container">
+        {/* Insights Component */}
+        <Insights
+          top5LowestScores={top5LowestScores}
+          top5BestScores={top5BestScores}
+          totalScore={totalScore}
+          totalTime={totalTime}
+          averageScore={averageScore}
+          levelsCompleted={levelsCompleted}
+          handleLevelClick={handleLevelClick}
+          getScoreColor={getScoreColor}
+          getStars={getStars}
+        />
+
+        {/* Levels Grid */}
+        <div className="levels-grid">
+          {levels.map((level) => {
+            const highestScore = highestScores.find(score => score.level === level);
+            return (
+              <div key={level} className="level-card">
+                <button
+                  className="level-button"
+                  onClick={() => handleLevelClick(level)}
+                >
+                  <div className="level-number">{level}</div>
+                  {highestScore && (
+                    <div
+                      className="score-text"
+                      data-score-color={getScoreColor(highestScore.highest_score)}
+                    >
+                      {highestScore.highest_score} / 10
+                    </div>
+                  )}
+                </button>
                 {highestScore && (
-                  <div 
-                    className="score-text" 
-                    data-score-color={getScoreColor(highestScore.highest_score)}
-                  >
-                    {highestScore.highest_score} / 10
-                  </div>
+                  <>
+                    <div className="stars-container">
+                      {getStars(highestScore.highest_score)}
+                    </div>
+                    <div className="time-taken">
+                      <span className="time-icon">⏱</span>
+                      {highestScore.time_taken}s
+                    </div>
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{ width: `${highestScore.highest_score * 10}%`, backgroundColor: getScoreColor(highestScore.highest_score) }}
+                      ></div>
+                    </div>
+                  </>
                 )}
-              </button>
-              {highestScore && (
-                <>
-                  <div className="stars-container">
-                    {getStars(highestScore.highest_score)}
-                  </div>
-                  <div className="time-taken">
-                    <span className="time-icon">⏱</span>
-                    {highestScore.time_taken}s
-                  </div>
-                </>
-              )}
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

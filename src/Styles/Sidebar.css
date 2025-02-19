@@ -24,7 +24,7 @@
   position: absolute;
   right: -40px;
   top: 20px;
-  background: rgba(25, 25, 25, 0.98);
+  background: rgba(255, 255, 255, 0.98);
   border: none;
   color: rgb(0, 0, 0);
   padding: 8px;
@@ -35,8 +35,8 @@
 }
 
 .sidebar-toggle:hover {
-  background: #333;
-  transform: translateX(3px);
+  background: #bdbdbd;
+ 
 }
 
 .sidebar-toggle svg {
@@ -222,7 +222,7 @@
 
 /* Level Button */
 .sidebar-level-button {
-  background: linear-gradient(45deg, #e6e6e6, #707070);
+  background:  #e6e6e6 ;
   color: black;
   border: none;
   padding: 10px 20px;
@@ -230,7 +230,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease;
-  display: inline-block; /* Use inline-block to control width */
+  display:flex ; /* Use inline-block to control width */
   max-width: 200px; /* Set a maximum width */
   margin: 0 auto; /* Center the button */
 }
