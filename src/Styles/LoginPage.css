@@ -1,0 +1,23 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login-page input {
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+  }
+  
+  .login-page button {
+    margin: 10px;
+    padding: 10px;
+    width: 100px;
+  }
+  
+  .login-page .error {
+    color: red;
+  }

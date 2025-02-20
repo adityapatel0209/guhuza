@@ -14,12 +14,17 @@ export default function LevelPage() {
   const navigate = useNavigate();
   const levels = Array.from({ length: 50 }, (_, i) => i + 1);
   const [highestScores, setHighestScores] = useState<HighestScore[]>([]);
+  const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
     const fetchHighestScores = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/highest-scores');
+        const token = localStorage.getItem("token");
+        const response = await axios.get('http://localhost:3001/api/highest-scores', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setHighestScores(response.data.data);
+        setUsername(response.data.username);
       } catch (error) {
         console.error("Error fetching highest scores:", error);
       }
@@ -62,7 +67,7 @@ export default function LevelPage() {
       <div className="banner">
         <h1 className="main-heading">Select Level</h1>
         <p className="page-description">
-          Welcome to the Level Selection page! Here, you can choose from 50 levels to test your skills.
+          Welcome, {username}! Here, you can choose from 50 levels to test your skills.
           Track your progress, improve your scores, and aim for the top. Use the insights below to
           identify areas for improvement and celebrate your best performances.
         </p>
@@ -87,11 +92,13 @@ export default function LevelPage() {
         <div className="levels-grid">
           {levels.map((level) => {
             const highestScore = highestScores.find(score => score.level === level);
+            const isLocked = level > levelsCompleted + 1;
             return (
-              <div key={level} className="level-card">
+              <div key={level} className={`level-card ${isLocked ? "locked" : ""}`}>
                 <button
                   className="level-button"
                   onClick={() => handleLevelClick(level)}
+                  disabled={isLocked}
                 >
                   <div className="level-number">{level}</div>
                   {highestScore && (
