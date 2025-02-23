@@ -2,12 +2,9 @@ import express from "express";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import cors from "cors";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 const app = express();
 const port = 3001;
-const secretKey = 1547 ; // Use a secure key in production
 
 const dbPromise = open({
   filename: "./src/Db/quiz_database.db",
@@ -38,9 +35,8 @@ app.post("/api/signup", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
     const db = await dbPromise;
-    await db.run("INSERT INTO users (username, password) VALUES (?, ?)", [username, hashedPassword]);
+    await db.run("INSERT INTO users (username, password) VALUES (?, ?)", [username, password]);
     res.json({ message: "User registered successfully" });
   } catch (err) {
     console.error("Error during signup:", err);
@@ -58,12 +54,11 @@ app.post("/api/login", async (req, res) => {
 
     const db = await dbPromise;
     const user = await db.get("SELECT * FROM users WHERE username = ?", [username]);
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user || user.password !== password) {
       return res.status(401).json({ error: "Invalid username or password" });
     }
 
-    const token = jwt.sign({ username: user.username }, secretKey, { expiresIn: "1h" });
-    res.json({ message: "Login successful", token });
+    res.json({ message: "Login successful", username: user.username });
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ error: "Internal server error" });
@@ -71,18 +66,23 @@ app.post("/api/login", async (req, res) => {
 });
 
 // Middleware to authenticate user
-const authenticate = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) {
+const authenticate = async (req, res, next) => {
+  const { username, password } = req.headers;
+  if (!username || !password) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
   try {
-    const decoded = jwt.verify(token, secretKey);
-    req.user = decoded;
+    const db = await dbPromise;
+    const user = await db.get("SELECT * FROM users WHERE username = ?", [username]);
+    if (!user || user.password !== password) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    req.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 

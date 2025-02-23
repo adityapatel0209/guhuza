@@ -77,14 +77,21 @@ export default function Insights({
     },
   };
 
+  const username = localStorage.getItem("username");
+
   return (
     <div className="bento-grid">
-      {/* Row 1: Total Score */}
+      {/* Row 1: Total Score and Username */}
       <div className="bento-card insight-card total-score-card">
-        <h3 className="insight-heading">Total Score</h3>
-        <p className="total-score-text">{totalScore} / 5000</p>
-        <div className="stars-container">
-          {getStars(totalScore / 500)}
+        <div className="total-score-container">
+          <p className="username-text">{username}</p>
+          <div className="total-score-content">
+            <h3 className="insight-heading">Total Score</h3>
+            <p className="total-score-text">{totalScore} / 5000</p>
+            <div className="stars-container">
+              {getStars(totalScore / 500)}
+            </div>
+          </div>
         </div>
       </div>
 

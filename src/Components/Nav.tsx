@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import guhuzalogo from "../asset/logos/guhuza.svg";
 import { Link, useNavigate } from "react-router-dom";
 import "../Styles/Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
 
   const handleLogin = () => {
     navigate('/login');
@@ -14,19 +23,41 @@ function Navbar() {
     navigate('/signup');
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    setUsername(null);
+    navigate('/login');
+  };
+
   return (
     <>
       <header>
         <div className="navbar">
           <div className="logo">
-            <a href="\"><img src={guhuzalogo} alt="Guhuza Logo" /></a>
+            <Link to="/"><img src={guhuzalogo} alt="Guhuza Logo" /></Link>
           </div>
           <div className="nav">
             <ul>
               <li><Link to="/play">Play</Link></li>
               <li><Link to="/lb">Leaderboard</Link></li>
-              <li><button className="login-signup-button" onClick={handleLogin}>Login</button></li>
-              <li><button className="login-signup-button" onClick={handleSignup}>Signup</button></li>
+              {username ? (
+                <li className="username-container">
+                  <button className="username-button" onClick={() => setShowPopup(!showPopup)}>
+                    {username}
+                  </button>
+                  {showPopup && (
+                    <div className="popup">
+                      <button onClick={handleSignOut}>Sign Out</button>
+                    </div>
+                  )}
+                </li>
+              ) : (
+                <>
+                  <li><button className="login-signup-button" onClick={handleLogin}>Login</button></li>
+                  <li><button className="login-signup-button" onClick={handleSignup}>Signup</button></li>
+                </>
+              )}
             </ul>
           </div>
         </div>

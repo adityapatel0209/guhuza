@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../Styles/LoginPage.css";
 
 export default function LoginPage() {
@@ -12,10 +14,13 @@ export default function LoginPage() {
   const handleLogin = async () => {
     try {
       const response = await axios.post("http://localhost:3001/api/login", { username, password });
-      localStorage.setItem("token", response.data.token);
-      navigate("/levels");
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      toast.success("Login successful!");
+      navigate("/play");
     } catch (err) {
       setError("Invalid username or password");
+      toast.error("Invalid username or password");
     }
   };
 
@@ -25,6 +30,7 @@ export default function LoginPage() {
       handleLogin();
     } catch (err) {
       setError("Error during signup");
+      toast.error("Error during signup");
     }
   };
 

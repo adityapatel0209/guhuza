@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../Styles/SignupPage.css";
 
 export default function SignupPage() {
@@ -12,9 +14,13 @@ export default function SignupPage() {
   const handleSignup = async () => {
     try {
       await axios.post("http://localhost:3001/api/signup", { username, password });
-      navigate("/login");
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      toast.success("Signup successful!");
+      navigate("/play");
     } catch (err) {
       setError("Error during signup");
+      toast.error("Error during signup");
     }
   };
 

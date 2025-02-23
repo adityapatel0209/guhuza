@@ -7,6 +7,9 @@ async function initializeDb() {
     driver: sqlite3.Database,
   });
 
+  // Set busy timeout to 5 seconds (5000 milliseconds)
+  await db.exec('PRAGMA busy_timeout = 5000;');
+
   await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,

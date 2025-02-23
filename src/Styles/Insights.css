@@ -1,191 +1,228 @@
 /* Bento Grid Layout */
 .bento-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Single column layout */
-    gap: 16px;
-    margin-bottom: 40px;
-    padding: 0 20px; /* Ensure equal gap on left and right */
+  display: grid;
+  grid-template-columns: 1fr; /* Single column layout */
+  gap: 16px;
+  margin-bottom: 40px;
+  padding: 0 20px; /* Ensure equal gap on left and right */
+}
+
+.bento-row {
+  display: flex;
+  gap: 16px;
+  align-items: stretch; /* Ensure cards stretch to the same height */
+}
+
+.bento-card {
+  background: #ffffff;
+  border-radius: 16px; /* Slightly larger radius for smoother look */
+  padding: 16px; /* Increased padding for better spacing */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); /* Softer shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1; /* Ensure all cards have the same size */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border for depth */
+}
+
+.bento-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18); /* Enhanced hover shadow */
+}
+
+.insight-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.total-score-card {
+  grid-column: span 1; /* Span across all columns */
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  color: #2d3436;
+}
+
+.total-score-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px; /* Added padding for better spacing */
+}
+
+.total-score-content {
+  text-align: right;
+}
+
+.username-text {
+  font-size: 1.75rem; /* Slightly larger for emphasis */
+  font-weight: 700;
+  color: #FFD700;
+  animation: glow 1.5s infinite;
+  margin: 0; /* Remove default margin */
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700, 0 0 20px #FFD700, 0 0 25px #FFD700, 0 0 30px #FFD700, 0 0 35px #FFD700;
   }
-  
-  .bento-row {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start; /* Align items at the start */
+  50% {
+    text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700, 0 0 50px #FFD700, 0 0 60px #FFD700, 0 0 70px #FFD700;
   }
-  
-  .bento-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    flex: 1; /* Ensure all cards have the same size */
+  100% {
+    text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700, 0 0 20px #FFD700, 0 0 25px #FFD700, 0 0 30px #FFD700, 0 0 35px #FFD700;
   }
-  
-  .bento-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.levels-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px; /* Fixed height for consistency */
+}
+
+.graph-card {
+  flex: 2;
+  padding: 16px; /* Reduced padding for better graph sizing */
+  display: flex;
+  flex-direction: column;
+  min-height: 300px; /* Fixed height for consistency */
+  max-height: 350px; /* Prevent graph from growing too large */
+}
+
+.graph-container {
+  height: 250px; /* Fixed height for the graph */
+  width: 100%; /* Ensure it takes full width */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Slightly larger for emphasis */
+  font-weight: 600;
+  color: #2d3436;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 12px; /* Increased padding */
+  margin-bottom: 12px; /* Slightly larger margin */
+  border-radius: 12px; /* Smoother radius */
+  height: 50px; /* Fixed height for all titles */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9); /* Slightly opaque background */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+}
+
+.total-score-text {
+  font-size: 2rem; /* Larger for emphasis */
+  font-weight: 700;
+  animation: pulse 1.5s infinite;
+  text-align: center;
+  margin: 12px 0; /* Added margin for spacing */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
-  .insight-card {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  50% {
+    transform: scale(1.05);
   }
-  
-  .total-score-card {
-    grid-column: span 1; /* Span across all columns */
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    color: #2d3436;
+  100% {
+    transform: scale(1);
   }
-  
-  .levels-card {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .graph-card {
-    flex: 2;
-    padding: 100px 8px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #2d3436;
-    text-align: center;
-    border: 1px solid #ddd;
-    padding: 8px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    height: 50px; /* Fixed height for all titles */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .total-score-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    animation: pulse 1.5s infinite;
-    text-align: center;
-  }
-  
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  /* Progress Bar */
-  .progress-bar {
-    width: 100%;
-    height: 6px;
-    background-color: #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 8px;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.3s ease;
-  }
-  
-  /* Cooler Yellow Color */
-  .score-text[data-score-color="yellow"] {
-    background: rgba(255, 209, 102, 0.15);
-    color: #FFD166;
-  }
-  
-  /* Level Info */
-  .level-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    border: 1px solid #ddd;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
-  }
-  
-  .level-text {
-    font-size: 1rem;
-    font-weight: 700; /* Bold text */
-    color: #fff;
-  }
-  
-  .score-container {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 700; /* Bold text */
-    color: #fff;
-  }
-  
-  /* Insight Heading */
-  .insight-heading {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #2d3436;
-    font-weight: 600;
-    text-align: center;
-  }
-  
-  /* Insight List */
-  .insight-list {
-    list-style: none;
-    padding: 0;
-    flex-grow: 1;
-  }
-  
-  .insight-level {
-    padding: 8px;
-    border-radius: 8px;
-    background: #f8f9fa;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-    border: 1px solid #ddd;
-  }
-  
-  .insight-level:hover {
-    transform: scale(0.98);
-    background: #e0e0e0;
-  }
-  
-  /* Graph Placeholder */
-  .graph-placeholder {
-    height: 150px;
-    background: #e0e0e0;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    font-size: 1rem;
-  }
-  
-  /* Centered Text */
-  .centered-text {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #2d3436;
-  }
-  
-  /* Small Card */
-  .small-card {
-    flex: 1;
-    min-width: 200px;
-  }
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 8px; /* Slightly thicker for better visibility */
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 12px; /* Increased margin */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Level Info */
+.level-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px; /* Increased margin */
+  border: 1px solid #ddd;
+  padding: 12px; /* Increased padding */
+  border-radius: 12px; /* Smoother radius */
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.level-text {
+  font-size: 1rem;
+  font-weight: 700; /* Bold text */
+  color: #fff;
+}
+
+.score-container {
+  padding: 6px 12px; /* Increased padding */
+  border-radius: 6px; /* Smoother radius */
+  font-size: 1rem;
+  font-weight: 700; /* Bold text */
+  color: #fff;
+}
+
+/* Insight Heading */
+.insight-heading {
+  font-size: 1.25rem; /* Slightly larger */
+  margin-bottom: 12px; /* Increased margin */
+  color: #2d3436;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Insight List */
+.insight-list {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.insight-level {
+  padding: 12px; /* Increased padding */
+  border-radius: 12px; /* Smoother radius */
+  background: #f8f9fa;
+  margin-bottom: 12px; /* Increased margin */
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+}
+
+.insight-level:hover {
+  transform: scale(0.98);
+  background: #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* Enhanced hover shadow */
+}
+
+/* Centered Text */
+.centered-text {
+  text-align: center;
+  font-size: 1.25rem; /* Slightly larger */
+  font-weight: 600;
+  color: #2d3436;
+  margin: 12px 0; /* Added margin */
+}
+
+/* Small Card */
+.small-card {
+  flex: 1;
+  min-width: 200px;
+  padding: 20px; /* Increased padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px; /* Smoother radius */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); /* Softer shadow */
+}

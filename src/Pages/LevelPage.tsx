@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Styles/LevelPage.css";
 import axios from "axios";
-import Insights from "../Components/Insights.tsx";
+import Insights from "../Components/Insights";
+import "../Styles/LevelPage.css";
 
 interface HighestScore {
   level: number;
@@ -19,22 +19,44 @@ export default function LevelPage() {
   useEffect(() => {
     const fetchHighestScores = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get('http://localhost:3001/api/highest-scores', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setHighestScores(response.data.data);
-        setUsername(response.data.username);
+        const username = localStorage.getItem("username");
+        const password = localStorage.getItem("password");
+        if (username && password) {
+          setUsername(username);
+          const response = await axios.get('http://localhost:3001/api/highest-scores', {
+            headers: { username, password }
+          });
+          setHighestScores(response.data.data);
+        } else {
+          navigate('/login');
+        }
       } catch (error) {
         console.error("Error fetching highest scores:", error);
       }
     };
 
     fetchHighestScores();
-  }, []);
+  }, [navigate]);
 
-  const handleLevelClick = (level: number) => {
-    navigate(`/quiz/${level}`);
+  const handleLevelClick = async (level: number) => {
+    try {
+      const username = localStorage.getItem("username");
+      const password = localStorage.getItem("password");
+      if (username && password) {
+        await axios.post('http://localhost:3001/api/update-highest-score', {
+          level,
+          highest_score: 10, // Example score
+          time_taken: 100 // Example time
+        }, {
+          headers: { username, password }
+        });
+        navigate(`/quiz/${level}`);
+      } else {
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error("Error updating highest score:", error);
+    }
   };
 
   const getStars = (score: number) => {
