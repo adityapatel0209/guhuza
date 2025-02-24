@@ -129,42 +129,6 @@
     margin-bottom: 1rem;
     color: #333;
   }
-  
-  /* Features Grid */
-.features h1{
-  font-size: 3rem; /* text-4xl */
-  margin-bottom: 1rem; /* mb-4 */
-  text-align: center; /* text-center */
-  color: black; /* text-black */
-}
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-    column-gap: 5rem;
-  }
-  
-  .feature-card {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s;
-    font-size: 1.275rem;
-  }
-  
-  .feature-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .feature-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-  
 
 
 

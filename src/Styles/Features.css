@@ -7,6 +7,7 @@
   margin-bottom: 1rem; /* mb-4 */
   text-align: center; /* text-center */
   color: black; /* text-black */
+  align-self: center;
 }
 
 .features-grid {
@@ -17,9 +18,25 @@
   column-gap: 5rem;
 }
 
+.features-grid > div{
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-card{
+height:22rem;
+}
+
+.stickygap{
+  margin-top: 10rem;
+  height: 35rem;
+}
+
 .feature-card-parent {
   position: relative;
   display: flex;
+  position: sticky;
+  top:20rem
 }
 
 .theball {
@@ -44,8 +61,8 @@
   transition: all 0.3s;
   font-size: 1.275rem;
   position: sticky;
-  top: 10rem;
   z-index: 10;
+  height: 13rem;
 }
 
 .feature-card-empty {
@@ -63,6 +80,7 @@
 }
 
 .line-container {
+  z-index: -1;
   position: absolute;
   width: 100%;
   display: flex;

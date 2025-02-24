@@ -16,7 +16,6 @@ import stock3 from "../asset/other/stock4.jpg";
 import stock4 from "../asset/other/stock5.jpg";
 
 import { Timeline } from "../Components/Timeline";
-import { motion } from "framer-motion";
 
 const HomePage = () => {
   useEffect(() => {
