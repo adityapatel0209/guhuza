@@ -1,0 +1,98 @@
+/* Features Grid */
+.features {
+  position: relative;
+}
+.features h1 {
+  font-size: 3rem; /* text-4xl */
+  margin-bottom: 1rem; /* mb-4 */
+  text-align: center; /* text-center */
+  color: black; /* text-black */
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  column-gap: 5rem;
+}
+
+.feature-card-parent {
+  position: relative;
+  display: flex;
+}
+
+.theball {
+  position: absolute;
+  top: 5rem;
+  z-index: 500;
+}
+
+.feature-card-parent.card-right .theball {
+  right: -0.5rem;
+}
+.feature-card-parent.card-left .theball {
+    left: -4.5rem;
+  }
+  
+
+.feature-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  font-size: 1.275rem;
+  position: sticky;
+  top: 10rem;
+  z-index: 10;
+}
+
+.feature-card-empty {
+  visibility: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.line-container {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  top: 3rem;
+}
+
+.gradient-bar {
+  position: absolute;
+  overflow: hidden;
+  width: 2px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.gradient-fill {
+  position: absolute;
+  inset-inline: 0; /* Equivalent to inset-x-0 */
+  top: 0;
+  width: 2px;
+  background: linear-gradient(
+    to top,
+    #a855f7 0%,
+    #3b82f6 10%,
+    transparent 100%
+  );
+  border-radius: 9999px; /* Equivalent to rounded-full */
+}
