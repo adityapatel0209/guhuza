@@ -10,9 +10,15 @@ async function initializeDb() {
   // Set busy timeout to 5 seconds (5000 milliseconds)
   await db.exec('PRAGMA busy_timeout = 5000;');
 
+  // Drop the users table if it exists
+  await db.exec('DROP TABLE IF EXISTS users;');
+
   await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      firstName TEXT NOT NULL,
+      lastName TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
       username TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL
     );
@@ -32,12 +38,10 @@ async function initializeDb() {
     );
   `);
 
-  // Insert initial entries
-  await db.run("INSERT INTO users (username, password) VALUES (?, ?)", ['aditya', '$2b$10$abcdefg...']);
-  await db.run("INSERT INTO users (username, password) VALUES (?, ?)", ['user2', '$2b$10$abcdefg...']);
-  await db.run("INSERT INTO users (username, password) VALUES (?, ?)", ['user3', '$2b$10$abcdefg...']);
-  await db.run("INSERT INTO users (username, password) VALUES (?, ?)", ['user4', '$2b$10$abcdefg...']);
-  await db.run("INSERT INTO users (username, password) VALUES (?, ?)", ['user5', '$2b$10$abcdefg...']);
+  // Insert initial entries with plain text passwords
+  await db.run("INSERT OR IGNORE INTO users (firstName, lastName, email, username, password) VALUES (?, ?, ?, ?, ?)", ['John', 'Doe', 'john@example.com', 'john', 'password123']);
+  await db.run("INSERT OR IGNORE INTO users (firstName, lastName, email, username, password) VALUES (?, ?, ?, ?, ?)", ['Jane', 'Smith', 'jane@example.com', 'jane', 'password123']);
+  await db.run("INSERT OR IGNORE INTO users (firstName, lastName, email, username, password) VALUES (?, ?, ?, ?, ?)", ['Alice', 'Johnson', 'alice@example.com', 'alice', 'password123']);
 
   console.log("Database initialized with initial entries.");
 }

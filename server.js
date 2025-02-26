@@ -19,6 +19,9 @@ dbPromise.then(async (db) => {
   await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      firstName TEXT NOT NULL,
+      lastName TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
       username TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL
     );
@@ -30,13 +33,13 @@ dbPromise.then(async (db) => {
 // User signup
 app.post("/api/signup", async (req, res) => {
   try {
-    const { username, password } = req.body;
-    if (!username || !password) {
+    const { firstName, lastName, email, username, password } = req.body;
+    if (!firstName || !lastName || !email || !username || !password) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
     const db = await dbPromise;
-    await db.run("INSERT INTO users (username, password) VALUES (?, ?)", [username, password]);
+    await db.run("INSERT INTO users (firstName, lastName, email, username, password) VALUES (?, ?, ?, ?, ?)", [firstName, lastName, email, username, password]);
     res.json({ message: "User registered successfully" });
   } catch (err) {
     console.error("Error during signup:", err);

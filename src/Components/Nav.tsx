@@ -19,10 +19,6 @@ function Navbar() {
     navigate('/login');
   };
 
-  const handleSignup = () => {
-    navigate('/signup');
-  };
-
   const handleSignOut = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("password");
@@ -41,23 +37,22 @@ function Navbar() {
             <ul>
               <li><Link to="/play">Play</Link></li>
               <li><Link to="/lb">Leaderboard</Link></li>
-              {username ? (
-                <li className="username-container">
-                  <button className="username-button" onClick={() => setShowPopup(!showPopup)}>
-                    {username}
-                  </button>
-                  {showPopup && (
-                    <div className="popup">
-                      <button onClick={handleSignOut}>Sign Out</button>
-                    </div>
-                  )}
-                </li>
-              ) : (
-                <>
-                  <li><button className="login-signup-button" onClick={handleLogin}>Login</button></li>
-                  <li><button className="login-signup-button" onClick={handleSignup}>Signup</button></li>
-                </>
-              )}
+              <li className="username-container">
+                <button className="login-signup-button" onClick={() => {
+                  if (username) {
+                    setShowPopup(!showPopup);
+                  } else {
+                    handleLogin();
+                  }
+                }}>
+                  {username ? username : "Sign In"}
+                </button>
+                {showPopup && username && (
+                  <div className="popup">
+                    <button onClick={handleSignOut}>Sign Out</button>
+                  </div>
+                )}
+              </li>
             </ul>
           </div>
         </div>

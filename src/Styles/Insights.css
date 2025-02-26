@@ -1,228 +1,197 @@
-/* Bento Grid Layout */
+/* Updated Bento Grid Layout (stacked by default, multi-column on wider screens) */
 .bento-grid {
   display: grid;
-  grid-template-columns: 1fr; /* Single column layout */
-  gap: 16px;
-  margin-bottom: 40px;
-  padding: 0 20px; /* Ensure equal gap on left and right */
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 0 20px;
 }
 
+/* For rows that display multiple cards side by side */
 .bento-row {
-  display: flex;
-  gap: 16px;
-  align-items: stretch; /* Ensure cards stretch to the same height */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
 }
 
+/* Standard Card Styles */
 .bento-card {
   background: #ffffff;
-  border-radius: 16px; /* Slightly larger radius for smoother look */
-  padding: 16px; /* Increased padding for better spacing */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); /* Softer shadow */
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1; /* Ensure all cards have the same size */
-  border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border for depth */
 }
-
 .bento-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18); /* Enhanced hover shadow */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
 }
 
+/* Insight Card Background */
 .insight-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: #fafafa;
 }
 
+/* Total Score Card */
 .total-score-card {
-  grid-column: span 1; /* Span across all columns */
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: #fafafa;
   color: #2d3436;
+  text-align: center;
 }
 
+/* Total Score Container and Content */
 .total-score-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 16px; /* Added padding for better spacing */
 }
-
 .total-score-content {
-  text-align: right;
+  text-align: center;
 }
 
-.username-text {
-  font-size: 1.75rem; /* Slightly larger for emphasis */
+/* Improved Name Styling: Clean Gradient Text */
+.firstname-text {
+  font-size: 2rem;
   font-weight: 700;
-  color: #FFD700;
-  animation: glow 1.5s infinite;
-  margin: 0; /* Remove default margin */
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 12px;
 }
 
-@keyframes glow {
-  0% {
-    text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700, 0 0 20px #FFD700, 0 0 25px #FFD700, 0 0 30px #FFD700, 0 0 35px #FFD700;
-  }
-  50% {
-    text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700, 0 0 50px #FFD700, 0 0 60px #FFD700, 0 0 70px #FFD700;
-  }
-  100% {
-    text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700, 0 0 20px #FFD700, 0 0 25px #FFD700, 0 0 30px #FFD700, 0 0 35px #FFD700;
-  }
+/* Total Score Text */
+.total-score-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 12px 0;
 }
 
-.levels-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 300px; /* Fixed height for consistency */
-}
-
-.graph-card {
-  flex: 2;
-  padding: 16px; /* Reduced padding for better graph sizing */
-  display: flex;
-  flex-direction: column;
-  min-height: 300px; /* Fixed height for consistency */
-  max-height: 350px; /* Prevent graph from growing too large */
-}
-
-.graph-container {
-  height: 250px; /* Fixed height for the graph */
-  width: 100%; /* Ensure it takes full width */
-}
-
+/* Card Titles with simple underline */
 .card-title {
-  font-size: 1.25rem; /* Slightly larger for emphasis */
+  font-size: 1.3rem;
   font-weight: 600;
   color: #2d3436;
   text-align: center;
-  border: 1px solid #ddd;
-  padding: 12px; /* Increased padding */
-  margin-bottom: 12px; /* Slightly larger margin */
-  border-radius: 12px; /* Smoother radius */
-  height: 50px; /* Fixed height for all titles */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.9); /* Slightly opaque background */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
-}
-
-.total-score-text {
-  font-size: 2rem; /* Larger for emphasis */
-  font-weight: 700;
-  animation: pulse 1.5s infinite;
-  text-align: center;
-  margin: 12px 0; /* Added margin for spacing */
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 /* Progress Bar */
 .progress-bar {
   width: 100%;
-  height: 8px; /* Slightly thicker for better visibility */
+  height: 10px;
   background-color: #e0e0e0;
-  border-radius: 4px;
+  border-radius: 5px;
   overflow: hidden;
-  margin-top: 12px; /* Increased margin */
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
+  margin-top: 16px;
 }
-
 .progress-fill {
   height: 100%;
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.3s ease;
 }
 
-/* Level Info */
+/* Level Info (used in each card) */
 .level-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px; /* Increased margin */
-  border: 1px solid #ddd;
-  padding: 12px; /* Increased padding */
-  border-radius: 12px; /* Smoother radius */
-  background-color: #000; /* Black background */
-  color: #fff; /* White text */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #222;
+  color: #fff;
 }
-
 .level-text {
   font-size: 1rem;
-  font-weight: 700; /* Bold text */
-  color: #fff;
+  font-weight: 700;
 }
-
 .score-container {
-  padding: 6px 12px; /* Increased padding */
-  border-radius: 6px; /* Smoother radius */
-  font-size: 1rem;
-  font-weight: 700; /* Bold text */
-  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 /* Insight Heading */
 .insight-heading {
-  font-size: 1.25rem; /* Slightly larger */
-  margin-bottom: 12px; /* Increased margin */
+  font-size: 1.3rem;
+  margin-bottom: 16px;
   color: #2d3436;
   font-weight: 600;
   text-align: center;
 }
 
-/* Insight List */
+/* Insight List (for levels) */
 .insight-list {
-  list-style: none;
+  margin: 0;
   padding: 0;
-  flex-grow: 1;
 }
-
 .insight-level {
-  padding: 12px; /* Increased padding */
-  border-radius: 12px; /* Smoother radius */
+  padding: 16px;
+  border-radius: 12px;
   background: #f8f9fa;
-  margin-bottom: 12px; /* Increased margin */
+  margin-bottom: 12px;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
   border: 1px solid #ddd;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  transition: background 0.2s ease, transform 0.2s ease;
 }
-
 .insight-level:hover {
-  transform: scale(0.98);
   background: #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* Enhanced hover shadow */
 }
 
 /* Centered Text */
 .centered-text {
   text-align: center;
-  font-size: 1.25rem; /* Slightly larger */
+  font-size: 1.3rem;
   font-weight: 600;
+  margin: 12px 0;
   color: #2d3436;
-  margin: 12px 0; /* Added margin */
 }
 
 /* Small Card */
 .small-card {
-  flex: 1;
-  min-width: 200px;
-  padding: 20px; /* Increased padding */
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 16px; /* Smoother radius */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); /* Softer shadow */
+}
+
+/* Section Heading (Partition) - simplified for web */
+.section-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2d3436;
+  margin: 40px 0 20px;
+  text-align: center;
+  position: relative;
+}
+.section-heading:before,
+.section-heading:after {
+  content: '';
+  display: inline-block;
+  width: 50px;
+  height: 3px;
+  background-color: #ff6363;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+/* New Card Style for Levels Needing Improvement */
+.improvement-card {
+  background: #ffeef0;
+  border-left: 5px solid #ff6363;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+.improvement-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
