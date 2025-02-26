@@ -502,3 +502,11 @@
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+.level-card.locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.level-card.locked .level-button {
+  cursor: not-allowed;
+}
