@@ -39,7 +39,7 @@ export default function Features() {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 50%", "end 100%"],
+    offset: ["start 30%", "end 100%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);

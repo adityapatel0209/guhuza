@@ -15,7 +15,7 @@ export default function AnimatedHeading({ children }: AnimatedHeadingProps) {
 
   const lengthProgress = useTransform(
     scrollYProgress,
-    [0, 0.5, 1],
+    [0.5, 0.7, 1],
     ["0%", "50%", "100%"]
   );
 

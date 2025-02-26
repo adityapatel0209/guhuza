@@ -46,7 +46,6 @@ const HomePage = () => {
     slidesToScroll: 1,
     adaptiveHeight: true,
   }; */
-const [isScrolled,setIsScrolled]=useState(false)
 
   return (
     <div className="home-container">
