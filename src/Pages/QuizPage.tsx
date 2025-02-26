@@ -54,13 +54,6 @@ const QuizPage: React.FC = () => {
 
         setData(response.data);
         setLoading(false);
-        {
-          /*
-          setTimeout(() => {
-         }, 500000); //this  is used for delaying the response. might be useful later
-        */
-        }
-
         setStartTime(Date.now());
       } catch (err: any) {
         setError(err.message);
@@ -83,47 +76,25 @@ const QuizPage: React.FC = () => {
   };
 
   const handleNextQuestion = () => {
-    !selectState &&
-      (() => {
-        setSelectState(null);
-        setSelectedOption(null);
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setStartTime(Date.now());
-      })();
+    if (selectState === true) {
+      setAttemptedQuestions([...attemptedQuestions, currentQuestionIndex]);
+      setAttemptedQuestionsData([
+        ...attemptedQuestionsData,
+        {
+          questionIndex: currentQuestionIndex,
+          correctAnswer: currentQuestion.test_answer,
+          selectedChoice: selectedOption,
+          viewState: true,
+        },
+      ]);
+    }
 
-    selectState === true &&
-      (() => {
-        setAttemptedQuestions([...attemptedQuestions, currentQuestionIndex]);
-        setSelectState(false);
-        setAttemptedQuestionsData([
-          ...attemptedQuestionsData,
-          {
-            questionIndex: currentQuestionIndex,
-            correctAnswer: currentQuestion.test_answer,
-            selectedChoice: selectedOption,
-            viewState: true,
-          },
-        ]);
-      })();
+    setSelectState(null);
+    setSelectedOption(null);
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setStartTime(Date.now());
   };
 
-  {
-    /*  const newAttemptedData = {
-      questionIndex: currentQuestionIndex,
-      correctAnswer: currentQuestion.test_answer,
-      selectedChoice: selectedOption,
-    };
-    setAttemptedQuestionsData(prev => [...prev, newAttemptedData]);
-    
-    console.log(attemptedQuestionsData);
-       
-    console.log([
-      currentQuestion.question,
-      currentQuestion.test_answer,
-      selectedOption,
-    ]);
-  */
-  }
   const handleRetry = () => {
     setCurrentQuestionIndex(0);
     setScore(0);
@@ -144,9 +115,35 @@ const QuizPage: React.FC = () => {
   };
 
   const handleQuestionChange = (index: number) => {
-    (attemptedQuestions.includes(index) ||
-      index === Math.max(...attemptedQuestions) + 1) &&
+    if (attemptedQuestions.includes(index) || index === Math.max(...attemptedQuestions) + 1) {
       setCurrentQuestionIndex(index);
+    }
+  };
+
+  const handleNextLevel = () => {
+    const nextLevel = parseInt(level || "1") + 1;
+    navigate(`/quiz/level-${nextLevel}`);
+  };
+
+  const submitScore = async () => {
+    const username = localStorage.getItem("username");
+    const password = localStorage.getItem("password");
+
+    if (username && password) {
+      try {
+        await axios.post('http://localhost:3001/api/update-highest-score', {
+          level: parseInt(level || "1"),
+          highest_score: score,
+          time_taken: levelTimes.reduce((acc, time) => acc + time, 0) / 1000, // total time in seconds
+        }, {
+          headers: { username, password }
+        });
+      } catch (error) {
+        console.error("Error submitting score:", error);
+      }
+    } else {
+      navigate('/login');
+    }
   };
 
   if (loading) {
@@ -168,19 +165,21 @@ const QuizPage: React.FC = () => {
     return <div>No data found</div>;
   }
 
-  if (currentQuestionIndex >= data.test.question.length /* true */) {
+  if (currentQuestionIndex >= data.test.question.length) {
     const totalTime = levelTimes.reduce((acc, time) => acc + time, 0);
+    submitScore();
     return (
       <Scorecard
-      correctAnswers={score}
-      totalQuestions={data.test.question.length}
-      totalTime={totalTime}
-      levelTimes={levelTimes.map((time) => time / 1000)}
-      onRetry={handleRetry}
-      onShare={handleShare}
-      level={parseInt(level || "1")}
-      username="player1" // Replace with dynamic username if available
-    />
+        correctAnswers={score}
+        totalQuestions={data.test.question.length}
+        totalTime={totalTime}
+        levelTimes={levelTimes.map((time) => time / 1000)}
+        onRetry={handleRetry}
+        onShare={handleShare}
+        onNextLevel={handleNextLevel}
+        level={parseInt(level || "1")}
+        username={localStorage.getItem("username") || "player1"} // Replace with dynamic username if available
+      />
     );
   }
 
@@ -191,7 +190,7 @@ const QuizPage: React.FC = () => {
   );
 
   const getButtonClass = (index: number) => {
-    if (questionAttempted === false) {
+    if (!questionAttempted) {
       if (selectedOption === null) return "";
 
       if (selectState === null || selectState === true) {
@@ -202,7 +201,7 @@ const QuizPage: React.FC = () => {
         if (index === currentQuestion.test_answer) return "correct withAnim";
         if (index === selectedOption) return "incorrect withAnim";
       }
-    } else if (questionAttempted === true) {
+    } else {
       if (index === attemptedQuestionsData[currentQuestionIndex].correctAnswer)
         return "correct";
       if (index === attemptedQuestionsData[currentQuestionIndex].selectedChoice)
@@ -238,7 +237,7 @@ const QuizPage: React.FC = () => {
                 onClick={() => {
                   handleOptionClick(index);
                 }}
-                disabled={selectState === false || questionAttempted === true}
+                disabled={selectState === false || questionAttempted}
               >
                 {answer}
               </button>
@@ -266,24 +265,3 @@ const QuizPage: React.FC = () => {
 };
 
 export default QuizPage;
-
-/*  className={`answer-button ${selectedOption !== null
-                    ? index === currentQuestion.test_answer
-                      ? "correct"
-                      : index === selectedOption
-                        ? "incorrect"
-                        : ""
-                    : ""
-                  }`} */
-
-/*  className={`answer-button ${
-                  selectedOption !== null ?
-                  (selectState === null || selectState === true)
-                    ? index === selectedOption ? "selected":""
-                    : selectState === false ?
-                      index === currentQuestion.test_answer
-                    ? "correct"
-                    : index === selectedOption
-                    ? "incorrect"
-                    : "":"":""
-                }`} */

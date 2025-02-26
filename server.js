@@ -14,11 +14,86 @@ const dbPromise = open({
 app.use(cors());
 app.use(express.json()); // Enable JSON parsing
 
-// Fetch highest scores
-app.get("/api/highest-scores", async (req, res) => {
+// Ensure the users table is created
+dbPromise.then(async (db) => {
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      firstName TEXT NOT NULL,
+      lastName TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      username TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL
+    );
+  `);
+}).catch((err) => {
+  console.error("Error creating users table:", err);
+});
+
+// User signup
+app.post("/api/signup", async (req, res) => {
+  try {
+    const { firstName, lastName, email, username, password } = req.body;
+    if (!firstName || !lastName || !email || !username || !password) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const db = await dbPromise;
+    await db.run("INSERT INTO users (firstName, lastName, email, username, password) VALUES (?, ?, ?, ?, ?)", [firstName, lastName, email, username, password]);
+    res.json({ message: "User registered successfully" });
+  } catch (err) {
+    console.error("Error during signup:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// User login
+app.post("/api/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const db = await dbPromise;
+    const user = await db.get("SELECT * FROM users WHERE username = ?", [username]);
+    if (!user || user.password !== password) {
+      return res.status(401).json({ error: "Invalid username or password" });
+    }
+
+    res.json({ message: "Login successful", username: user.username });
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Middleware to authenticate user
+const authenticate = async (req, res, next) => {
+  const { username, password } = req.headers;
+  if (!username || !password) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
   try {
     const db = await dbPromise;
-    const rows = await db.all("SELECT * FROM highest_scores");
+    const user = await db.get("SELECT * FROM users WHERE username = ?", [username]);
+    if (!user || user.password !== password) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    req.user = user;
+    next();
+  } catch (err) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Fetch highest scores
+app.get("/api/highest-scores", authenticate, async (req, res) => {
+  try {
+    const db = await dbPromise;
+    const rows = await db.all("SELECT * FROM highest_scores WHERE username = ?", [req.user.username]);
     res.json({ data: rows });
   } catch (err) {
     console.error("Error fetching highest scores:", err);
@@ -27,11 +102,11 @@ app.get("/api/highest-scores", async (req, res) => {
 });
 
 // Update highest score
-app.post("/api/update-highest-score", async (req, res) => {
+app.post("/api/update-highest-score", authenticate, async (req, res) => {
   try {
-    const { username, level, highest_score, time_taken } = req.body;
+    const { level, highest_score, time_taken } = req.body;
 
-    if (!username || !level || highest_score === undefined || time_taken === undefined) {
+    if (!level || highest_score === undefined || time_taken === undefined) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -39,7 +114,7 @@ app.post("/api/update-highest-score", async (req, res) => {
 
     // Check if a record exists
     const existing = await db.get("SELECT * FROM highest_scores WHERE username = ? AND level = ?", [
-      username,
+      req.user.username,
       level,
     ]);
 
@@ -48,7 +123,7 @@ app.post("/api/update-highest-score", async (req, res) => {
       if (highest_score > existing.highest_score) {
         await db.run(
           "UPDATE highest_scores SET highest_score = ?, time_taken = ? WHERE username = ? AND level = ?",
-          [highest_score, time_taken, username, level]
+          [highest_score, time_taken, req.user.username, level]
         );
         return res.json({ message: "Highest score updated", status: "updated" });
       } else {
@@ -57,7 +132,7 @@ app.post("/api/update-highest-score", async (req, res) => {
     } else {
       // Insert new record
       await db.run("INSERT INTO highest_scores (username, level, highest_score, time_taken) VALUES (?, ?, ?, ?)", [
-        username,
+        req.user.username,
         level,
         highest_score,
         time_taken,

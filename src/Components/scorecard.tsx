@@ -15,6 +15,7 @@ interface ScorecardProps {
   username: string;
   onRetry: () => void;
   onShare: () => void;
+  onNextLevel: () => void;
 }
 
 const Scorecard: React.FC<ScorecardProps> = ({
@@ -26,6 +27,7 @@ const Scorecard: React.FC<ScorecardProps> = ({
   username,
   onRetry,
   onShare,
+  onNextLevel,
 }) => {
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
   const averageTimePerQuestion = (totalTime / totalQuestions).toFixed(2);
@@ -98,6 +100,9 @@ const Scorecard: React.FC<ScorecardProps> = ({
           </button>
           <button className="leaderboard-button share-button" onClick={onShare}>
             Share Results
+          </button>
+          <button className="leaderboard-button next-level-button" onClick={onNextLevel}>
+            Next Level
           </button>
         </div>
       </div>
