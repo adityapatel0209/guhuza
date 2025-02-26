@@ -4,7 +4,6 @@
     margin: 0 auto;
     padding: 2rem;
     color: #333;
-    font-family: 'Segoe UI', sans-serif;
   }
   
   /* Animations */
@@ -40,7 +39,7 @@
   }
   
   .hero-content {
-    max-width: 600px;
+    width: 100%;
   }
   
   .hero-title {
@@ -48,8 +47,7 @@
     margin-bottom: 1rem;
   }
 
-  
-  
+
   .gradient-text {
     background: linear-gradient(45deg, #000, #4a4a4a);
     -webkit-background-clip: text;
@@ -95,6 +93,9 @@
   
   .hero-image {
     margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .hero-image img {
@@ -128,33 +129,9 @@
     margin-bottom: 1rem;
     color: #333;
   }
-  
-  /* Features Grid */
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  
-  .feature-card {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s;
-  }
-  
-  .feature-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .feature-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-  
+
+
+
   /* Carousel Card */
   .carousel-card {
     position: relative;
@@ -195,12 +172,14 @@
   .cta {
     text-align: center;
     padding: 4rem 0;
+    display: flex;
+    justify-content: center;
   }
   
   .cta-button {
     padding: 1rem 2rem;
     font-size: 1rem;
-    background: linear-gradient(45deg, #000, #333);
+    background: radial-gradient(circle at top center, #333 1%, #000 99%);
     color: white;
     border: none;
     border-radius: 50px;
@@ -211,6 +190,6 @@
     transition: all 0.3s;
   }
   
-  .cta-button.glow-effect:hover {
+  /* .cta-button.glow-effect:hover {
     animation: glow 1.5s infinite;
-  }
+  } */

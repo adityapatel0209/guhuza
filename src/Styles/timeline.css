@@ -1,0 +1,20 @@
+.timeline-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.timeline-content img{
+    border-radius: 1rem;
+    max-width: 550px;
+}
+
+.timeline-content p{
+    font-size: 1.275rem;
+    
+}
+
+.timeline-content-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
