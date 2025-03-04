@@ -76,23 +76,28 @@ const QuizPage: React.FC = () => {
   };
 
   const handleNextQuestion = () => {
-    if (selectState === true) {
-      setAttemptedQuestions([...attemptedQuestions, currentQuestionIndex]);
-      setAttemptedQuestionsData([
-        ...attemptedQuestionsData,
-        {
-          questionIndex: currentQuestionIndex,
-          correctAnswer: currentQuestion.test_answer,
-          selectedChoice: selectedOption,
-          viewState: true,
-        },
-      ]);
-    }
-
-    setSelectState(null);
-    setSelectedOption(null);
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    setStartTime(Date.now());
+    !selectState &&
+      (() => {
+        setSelectState(null);
+        setSelectedOption(null);
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setStartTime(Date.now());
+      })();
+    
+    selectState === true &&
+      (() => {
+        setAttemptedQuestions([...attemptedQuestions, currentQuestionIndex]);
+        setSelectState(false);
+        setAttemptedQuestionsData([
+          ...attemptedQuestionsData,
+          {
+            questionIndex: currentQuestionIndex,
+            correctAnswer: currentQuestion.test_answer,
+            selectedChoice: selectedOption,
+            viewState: true,
+          },
+        ]);
+      })();
   };
 
   const handleRetry = () => {
@@ -115,7 +120,10 @@ const QuizPage: React.FC = () => {
   };
 
   const handleQuestionChange = (index: number) => {
-    if (attemptedQuestions.includes(index) || index === Math.max(...attemptedQuestions) + 1) {
+    if (
+      attemptedQuestions.includes(index) ||
+      index === Math.max(...attemptedQuestions) + 1
+    ) {
       setCurrentQuestionIndex(index);
     }
   };
@@ -131,18 +139,22 @@ const QuizPage: React.FC = () => {
 
     if (username && password) {
       try {
-        await axios.post('http://localhost:3001/api/update-highest-score', {
-          level: parseInt(level || "1"),
-          highest_score: score,
-          time_taken: levelTimes.reduce((acc, time) => acc + time, 0) / 1000, // total time in seconds
-        }, {
-          headers: { username, password }
-        });
+        await axios.post(
+          "http://localhost:3001/api/update-highest-score",
+          {
+            level: parseInt(level || "1"),
+            highest_score: score,
+            time_taken: levelTimes.reduce((acc, time) => acc + time, 0) / 1000, // total time in seconds
+          },
+          {
+            headers: { username, password },
+          }
+        );
       } catch (error) {
         console.error("Error submitting score:", error);
       }
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   };
 

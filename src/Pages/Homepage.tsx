@@ -75,47 +75,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Why Guhuza Section */}
-      {/* <section className="why-guhuza animate-on-scroll">
-        <h2 className="section-title">Why Take Guhuza Quizzes?</h2>
-        <Slider {...settings}>
-          <div className="carousel-card">
-            <img src={stock1} alt="Boost Job Readiness" />
-            <div className="carousel-content">
-              <h3>Boost Job Readiness</h3>
-              <p>
-                Improve industry knowledge with real-world scenarios and
-                strengthen problem-solving skills.
-              </p>
-            </div>
-          </div>
-          <div className="carousel-card">
-            <img src={stock2} alt="Get Noticed by Employers" />
-            <div className="carousel-content">
-              <h3>Get Noticed by Employers</h3>
-              <p>
-                Top scorers are highlighted for potential job opportunities.
-              </p>
-            </div>
-          </div>
-          <div className="carousel-card">
-            <img src={stock3} alt="Compete & Earn Rewards" />
-            <div className="carousel-content">
-              <h3>Compete & Earn Rewards</h3>
-              <p>Earn badges, certifications, and exclusive prizes.</p>
-            </div>
-          </div>
-          <div className="carousel-card">
-            <img src={stock4} alt="Track Your Progress" />
-            <div className="carousel-content">
-              <h3>Track Your Progress</h3>
-              <p>
-                Personalized scorecards and recommendations for improvement.
-              </p>
-            </div>
-          </div>
-        </Slider>
-      </section> */}
 
       <Timeline
         data={[
