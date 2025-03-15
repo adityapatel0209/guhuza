@@ -8,9 +8,8 @@ import Homepage from './Pages/Homepage.tsx';
 import LoginPage from './Pages/LoginPage.tsx';
 import SignupPage from './Pages/SignupPage.tsx';
 import Authenticate from './Components/Authenticate.tsx';
-import TestComponent from './Pages/TestPage.tsx';
+import BackgroundBoxesDemo from './Pages/TestPage.tsx';
 
-import Footer from './Components/Footer.tsx';
 import "../src/style.css";
 
 const App: React.FC = () => {
@@ -25,9 +24,8 @@ const App: React.FC = () => {
         <Route path="/play" element={<Authenticate><LevelPage /></Authenticate>} />
         <Route path="/quiz/:level" element={<Authenticate><QuizPage /></Authenticate>} />
         <Route path="/lb" element={<Leaderboard  />} />
-        <Route path="/test" element={<TestComponent/>} />
+        <Route path="/test" element={<BackgroundBoxesDemo/>} />
       </Routes>
-      <Footer/>
     </div>
   );
 };

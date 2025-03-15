@@ -26,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onLevelChange,
   onQuestionChange,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
 
@@ -71,10 +71,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div className={`sidebar-container ${isExpanded ? "sidebar-expanded" : "sidebar-collapsed"}`}>
       <div className="sidebar">
-        <button
+       
+        {/* this is Siderbar Toggler */}
+        {/* <button
           className="sidebar-toggle"
           onClick={() => setIsExpanded(!isExpanded)}
-        >
+        > 
           {isExpanded ? (
             <svg width="24" height="24" viewBox="0 0 24 24">
               <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
@@ -84,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
             </svg>
           )}
-        </button>
+        </button> */}
 
         <div className="sidebar-content">
           {isExpanded ? (

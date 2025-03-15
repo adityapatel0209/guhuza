@@ -1,5 +1,25 @@
 // Just a test componenet for new testing components
 
+import React from "react";
+import { Boxes } from "../Components/BackgroundEffect";
+import "../Styles/Test.css"; // Import the CSS file
+
+const BackgroundBoxesDemo = () => {
+  return (
+    <div className="bg-container-container">
+      <div className="background-container">
+        <div className="mask-overlay" />
+        <Boxes />
+      </div>
+      <div className="blue-background">hello</div>
+    </div>
+  );
+}; 
+
+export default BackgroundBoxesDemo;
+
+
+/* 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import "../Styles/Test.css";
@@ -76,7 +96,7 @@ function AnimatedButton({ children }: { children: React.ReactNode }) {
       </div>
     </span>
   );
-}
+} */
 
 /*   const backgroundProgress = useTransform(
     scrollYProgress,

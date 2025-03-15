@@ -130,7 +130,7 @@ const QuizPage: React.FC = () => {
 
   const handleNextLevel = () => {
     const nextLevel = parseInt(level || "1") + 1;
-    navigate(`/quiz/level-${nextLevel}`);
+    navigate(`/quiz/${nextLevel}`);
   };
 
   const submitScore = async () => {

@@ -7,6 +7,8 @@ import { FiArrowRight, FiBook } from "react-icons/fi";
 import "../Styles/HomePage.css";
 import Features from "../Components/Features";
 import AnimatedButton from "../Components/AnimatedButton";
+import { Boxes } from "../Components/BackgroundEffect"; 
+import Footer from '../Components/Footer.tsx';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -48,13 +50,18 @@ const HomePage = () => {
   }; */
 
   return (
+    <>
     <div className="home-container">
       {/* Hero Section */}
       <section className="hero animate-on-scroll">
+        <div className="hero-background">
+          <div className="hero-mask-overlay" />
+          <Boxes/>
+        </div>
         <div className="hero-content">
           <h1 className="hero-title">
             Level Up Your Job Search with{" "}
-            <span className="gradient-text">Guhuza Quizzes</span>
+            <span className="gradient-text">Guhuza</span> Quizzes
           </h1>
           <p className="hero-subtitle">
             Gamified quizzes to boost your skills, showcase your talent, and get
@@ -73,6 +80,7 @@ const HomePage = () => {
         <div className="hero-image">
           <img src="../src/asset/other/guhuzauser.png" alt="Career" />
         </div>
+      
       </section>
 
 
@@ -136,7 +144,8 @@ const HomePage = () => {
 
 
     </div>
-  );
+    <Footer/>
+    </>);
 };
 
 export default HomePage;

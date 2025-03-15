@@ -3,7 +3,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    color: #333;
+
   }
   
   /* Animations */
@@ -31,39 +31,71 @@
   
   /* Hero Section */
   .hero {
-    text-align: center;
-    padding: 4rem 0;
+    position: relative;
+    margin: 4rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem ;
+    z-index: 100;
+  }
+  
+  .hero-background{
+    position: absolute;
+    inset:0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: #0f172a;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
-  
-  .hero-content {
+
+  .hero-mask-overlay{
     width: 100%;
+    height: 100%;
+    z-index: 20;
+    background-color: #0f172a;
+    mask-image: radial-gradient(transparent,white);
+    pointer-events: none;
+  }
+
+
+  .hero-content {
+   
+    width: 100%;
+    padding: 3rem;
   }
   
   .hero-title {
     font-size: 3rem;
     margin-bottom: 1rem;
+    color: #fff;
   }
-
-
+  
+  
   .gradient-text {
-    background: linear-gradient(45deg, #000, #4a4a4a);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    text-decoration: underline;
+    color: radial-gradient( #ffffff,#fff,#4a4a4a);
+ 
   }
   
   .hero-subtitle {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: #666;
+    color: #fff;
   }
   
   .hero-cta {
     display: flex;
-    justify-content: center;
     gap: 1rem;
   }
   
@@ -72,7 +104,7 @@
     font-size: 1rem;
     background: linear-gradient(45deg, #000, #333);
     color: white;
-    border: none;
+    border:  3px white solid;
     border-radius: 50px;
     cursor: pointer;
     display: flex;
@@ -92,15 +124,15 @@
   }
   
   .hero-image {
-    margin-top: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
   .hero-image img {
-    max-width: 70%;
-    border-radius: 15px;
+   height: 600px;
+   object-fit: cover;
+    border-radius: 0 1rem 1rem 0;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
   
@@ -176,19 +208,6 @@
     justify-content: center;
   }
   
-  .cta-button {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    background: radial-gradient(circle at top center, #333 1%, #000 99%);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s;
-  }
   
   /* .cta-button.glow-effect:hover {
     animation: glow 1.5s infinite;
