@@ -1,0 +1,48 @@
+.heading-container{
+  position: relative;
+}
+
+.child-span{
+ color: white;
+}
+
+.animatedLine {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top:0.4rem;
+  justify-content: center;
+  /* mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 30%,
+    black 70%,
+    transparent 100%
+  ); */
+}
+.animatedLine>div{
+    height: 3rem;
+    z-index: -1;
+}
+
+.animatedLine1 {
+  background: linear-gradient(
+    to right,
+    #a855f7 0%,
+    #3b82f6 20%
+  );
+  border-top-left-radius:0.5rem ;
+  border-bottom-left-radius:0.5rem ;
+}
+
+.animatedLine2 {
+    background: linear-gradient(
+      to left,
+      #a855f7 0%,
+      #3b82f6 20%
+    );
+    border-top-right-radius:0.5rem ;
+    border-bottom-right-radius:0.5rem ;
+  }
+  
