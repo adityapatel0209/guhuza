@@ -5,7 +5,7 @@ interface InsightsProps {
   totalScore: number;
   totalTime: number;
   averageScore: string;
-  levelsCompleted: number;
+  highestLevelCompleted: number;
   getStars: (score: number) => JSX.Element[];
 }
 
@@ -20,25 +20,15 @@ const formatTime = (seconds: number) => {
   return minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
 };
 
-const calculateProgress = (current: number, total: number) => {
-  return ((current / total) * 100).toFixed(1);
-};
-
-const calculateEfficiency = (score: number, time: number) => {
-  return ((score / time) * 100).toFixed(2);
-};
-
 export default function Insights({
   totalScore,
   totalTime,
   averageScore,
-  levelsCompleted,
+  highestLevelCompleted,
   getStars,
 }: InsightsProps) {
   const firstname = localStorage.getItem("firstname") || "User";
-  const averageTimePerLevel = levelsCompleted > 0 ? totalTime / levelsCompleted : 0;
-  const completionRate = calculateProgress(levelsCompleted, 50);
-  const efficiency = calculateEfficiency(totalScore, totalTime);
+  const averageTimePerLevel = highestLevelCompleted > 0 ? totalTime / highestLevelCompleted : 0;
 
   return (
     <div className="bento-grid">
@@ -51,15 +41,15 @@ export default function Insights({
         
         <div className="stat-grid">
           <div className="stat-item">
-            <div className="stat-value">{completionRate}%</div>
-            <div className="stat-label">Completion</div>
+            <div className="stat-value">50</div>
+            <div className="stat-label">Highest Level Attempted</div>
           </div>
           <div className="stat-item">
-            <div className="stat-value">{efficiency}</div>
-            <div className="stat-label">Efficiency Score</div>
+            <div className="stat-value">7</div>
+            <div className="stat-label">Average Score</div>
           </div>
           <div className="stat-item">
-            <div className="stat-value">{formatTime(totalTime)}</div>
+            <div className="stat-value">20m30s</div>
             <div className="stat-label">Total Time</div>
           </div>
         </div>
