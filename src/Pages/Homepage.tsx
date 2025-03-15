@@ -83,7 +83,6 @@ const HomePage = () => {
       
       </section>
 
-
       <Timeline
         data={[
           {
@@ -132,7 +131,6 @@ const HomePage = () => {
           },
         ]}
       />
-
       {/* Features Section */}
       <Features />
 
@@ -140,9 +138,6 @@ const HomePage = () => {
       <AnimatedButton nav="/play">
         Start Now <FiArrowRight className="button-icon"/>
       </AnimatedButton>
-
-
-
     </div>
     <Footer/>
     </>);
