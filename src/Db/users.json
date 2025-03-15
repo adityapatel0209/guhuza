@@ -1,0 +1,158 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alex Johnson",
+      "username": "alexj",
+      "bio": "Quiz enthusiast and software developer",
+      "profilePic": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80",
+      "social": {
+        "instagram": "alexj",
+        "github": "alexjohnson",
+        "linkedin": "alex-johnson"
+      },
+      "score": 950,
+      "profileShared": true,
+      "durationOnLeaderboard": "3 months",
+      "levelFinished": 8,
+      "averageScore": 92,
+      "badges": ["Gold", "Expert", "Consistent"],
+      "interests": ["Programming", "Mathematics", "Science"],
+      "stats": {
+        "quizzesTaken": 45,
+        "correctAnswers": 410,
+        "wrongAnswers": 40,
+        "averageTime": "45 seconds"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Samantha Lee",
+      "username": "samlee",
+      "bio": "Knowledge seeker and book lover",
+      "profilePic": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80",
+      "social": {
+        "instagram": "samlee",
+        "github": "samanthalee",
+        "linkedin": "samantha-lee"
+      },
+      "score": 1020,
+      "profileShared": true,
+      "durationOnLeaderboard": "5 months",
+      "levelFinished": 10,
+      "averageScore": 95,
+      "badges": ["Platinum", "Genius", "Streak"],
+      "interests": ["Literature", "History", "Arts"],
+      "stats": {
+        "quizzesTaken": 52,
+        "correctAnswers": 490,
+        "wrongAnswers": 30,
+        "averageTime": "40 seconds"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Michael Chen",
+      "username": "mikechen",
+      "bio": "Tech enthusiast and competitive quizzer",
+      "profilePic": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80",
+      "social": {
+        "instagram": "mikechen",
+        "github": "michaelchen",
+        "linkedin": "michael-chen"
+      },
+      "score": 880,
+      "profileShared": true,
+      "durationOnLeaderboard": "2 months",
+      "levelFinished": 7,
+      "averageScore": 88,
+      "badges": ["Silver", "Fast", "Analytical"],
+      "interests": ["Technology", "Gaming", "Puzzles"],
+      "stats": {
+        "quizzesTaken": 38,
+        "correctAnswers": 335,
+        "wrongAnswers": 45,
+        "averageTime": "35 seconds"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Emily Rodriguez",
+      "username": "emilyrod",
+      "bio": "Trivia lover and science enthusiast",
+      "profilePic": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80",
+      "social": {
+        "instagram": "emilyrod",
+        "github": "emilyrodriguez",
+        "linkedin": "emily-rodriguez"
+      },
+      "score": 920,
+      "profileShared": true,
+      "durationOnLeaderboard": "4 months",
+      "levelFinished": 8,
+      "averageScore": 90,
+      "badges": ["Gold", "Consistent", "Scholar"],
+      "interests": ["Biology", "Chemistry", "Research"],
+      "stats": {
+        "quizzesTaken": 42,
+        "correctAnswers": 378,
+        "wrongAnswers": 42,
+        "averageTime": "50 seconds"
+      }
+    },
+    {
+      "id": 5,
+      "name": "David Kim",
+      "username": "davek",
+      "bio": "Quiz master and math wizard",
+      "profilePic": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80",
+      "social": {
+        "instagram": "davek",
+        "github": "davidkim",
+        "linkedin": "david-kim"
+      },
+      "score": 1050,
+      "profileShared": true,
+      "durationOnLeaderboard": "6 months",
+      "levelFinished": 10,
+      "averageScore": 97,
+      "badges": ["Platinum", "Genius", "Champion"],
+      "interests": ["Mathematics", "Physics", "Astronomy"],
+      "stats": {
+        "quizzesTaken": 55,
+        "correctAnswers": 530,
+        "wrongAnswers": 20,
+        "averageTime": "38 seconds"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Current User",
+      "username": "currentuser",
+      "bio": "Quiz enthusiast exploring knowledge",
+      "profilePic": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80",
+      "social": {
+        "instagram": "currentuser",
+        "github": "currentuser",
+        "linkedin": "current-user"
+      },
+      "score": 750,
+      "profileShared": true,
+      "durationOnLeaderboard": "1 month",
+      "levelFinished": 6,
+      "averageScore": 85,
+      "badges": ["Bronze", "Rising"],
+      "interests": ["General Knowledge", "Sports", "Movies"],
+      "stats": {
+        "quizzesTaken": 30,
+        "correctAnswers": 255,
+        "wrongAnswers": 45,
+        "averageTime": "55 seconds"
+      }
+    }
+  ],
+  "leaderboardThreshold": {
+    "score": 800,
+    "level": 7
+  }
+}
