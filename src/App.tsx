@@ -1,15 +1,16 @@
+// In App.tsx
+
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LevelPage from './Pages/LevelPage.tsx';
 import QuizPage from './Pages/QuizPage.tsx';
 import Navbar from "./Components/Nav.tsx";
-import Leaderboard from "./Pages/Leaderboardpage.tsx";
+import LeaderboardPage from "./Pages/Leaderboardpage.tsx"; // Updated import
 import Homepage from './Pages/Homepage.tsx';
 import LoginPage from './Pages/LoginPage.tsx';
 import SignupPage from './Pages/SignupPage.tsx';
 import Authenticate from './Components/Authenticate.tsx';
 import TestComponent from './Pages/TestPage.tsx';
-
 import Footer from './Components/Footer.tsx';
 import "../src/style.css";
 
@@ -24,7 +25,7 @@ const App: React.FC = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/play" element={<Authenticate><LevelPage /></Authenticate>} />
         <Route path="/quiz/:level" element={<Authenticate><QuizPage /></Authenticate>} />
-        <Route path="/lb" element={<Leaderboard  />} />
+        <Route path="/lb" element={<LeaderboardPage />} /> {/* Updated component name */}
         <Route path="/test" element={<TestComponent/>} />
       </Routes>
       <Footer/>

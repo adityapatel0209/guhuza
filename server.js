@@ -89,11 +89,11 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-// Fetch highest scores
+// Fetch highest scores for all users
 app.get("/api/highest-scores", authenticate, async (req, res) => {
   try {
     const db = await dbPromise;
-    const rows = await db.all("SELECT * FROM highest_scores WHERE username = ?", [req.user.username]);
+    const rows = await db.all("SELECT * FROM highest_scores ORDER BY highest_score DESC");
     res.json({ data: rows });
   } catch (err) {
     console.error("Error fetching highest scores:", err);
