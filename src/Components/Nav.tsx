@@ -26,11 +26,12 @@ function Navbar() {
     navigate('/login');
   };
 
-  return (
+  return ( 
     <>
       <header>
+        <div className="navbar-container">
         <div className="navbar">
-          <div className="logo">
+          <div className="logo-nav">
             <Link to="/"><img src={guhuzalogo} alt="Guhuza Logo" /></Link>
           </div>
           <div className="nav">
@@ -54,7 +55,8 @@ function Navbar() {
                 )}
               </li>
             </ul>
-          </div>
+            </div>
+            </div>
         </div>
       </header>
     </>
