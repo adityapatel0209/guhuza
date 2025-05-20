@@ -16,7 +16,7 @@ app.get('/api/users', async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://api-ghz-v2.azurewebsites.net/api/v2/quiz?level=${level}`
+      `API KEY`
     );
     // console.log('Fetched Data:', response.data);
    
